@@ -28,7 +28,6 @@ export const Button = defineStyleConfig({
         bg: "grey.1",
       },
     },
-    // A fazer
     negative: {
       bg: "grey.6",
       color: "grey.2",
@@ -47,6 +46,7 @@ export const Button = defineStyleConfig({
         bg: "brand.2",
       },
     },
+    // A fazer
     brandOpacity: {
       bg: "purple.500",
       color: "white",
