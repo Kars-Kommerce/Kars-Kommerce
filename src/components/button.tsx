@@ -2,8 +2,15 @@ import { defineStyleConfig } from "@chakra-ui/react";
 
 export const Button = defineStyleConfig({
   baseStyle: {
-    fontWeight: "bold",
-    borderRadius: "base",
+    fontWeight: "600",
+    borderRadius: "4px",
+    fontFamily: "Inter",
+    _hover: {
+      borderColor: "transparent",
+    },
+    _focus: {
+      outline: "none",
+    },
   },
 
   sizes: {
@@ -15,12 +22,11 @@ export const Button = defineStyleConfig({
     medium: {
       fontSize: "md",
       px: 7,
-      py: 6,
+      py: 4,
     },
   },
 
   variants: {
-    // Ja feito
     grey1: {
       bg: "grey.0",
       color: "grey.white",
@@ -46,46 +52,79 @@ export const Button = defineStyleConfig({
         bg: "brand.2",
       },
     },
-    // A fazer
     brandOpacity: {
-      bg: "purple.500",
-      color: "white",
+      bg: "brand.4",
+      color: "brand.1",
     },
     light: {
-      bg: "purple.500",
-      color: "white",
+      bg: "grey.10",
+      color: "grey.1",
     },
     outilineLight: {
-      bg: "purple.500",
-      color: "white",
+      border: "2px solid",
+      borderColor: "grey.10",
+      bg: "transparent",
+      color: "grey.10",
+      _hover: {
+        bg: "grey.white",
+        color: "grey.1",
+      },
     },
     outiline1: {
-      bg: "purple.500",
-      color: "white",
+      border: "2px solid",
+      borderColor: "grey.0",
+      bg: "transparent",
+      color: "grey.0",
+      _hover: {
+        bg: "grey.1",
+        color: "grey.white",
+      },
     },
     outiline2: {
-      bg: "purple.500",
-      color: "white",
+      border: "2px solid",
+      borderColor: "grey.4",
+      bg: "transparent",
+      color: "grey.0",
+      _hover: {
+        bg: "grey.1",
+        color: "grey.white",
+        borderColor: "grey.1",
+      },
     },
     outilineBrand1: {
-      bg: "purple.500",
-      color: "white",
+      border: "2px solid",
+      borderColor: "brand.1",
+      bg: "transparent",
+      color: "brand.1",
+      _hover: {
+        bg: "brand.4",
+        borderColor: "brand.1",
+      },
     },
-    link: {
-      bg: "purple.500",
-      color: "white",
+    linkButton: {
+      bg: "transparent",
+      color: "grey.0",
+      _hover: {
+        bg: "grey.8",
+      },
     },
     alert: {
-      bg: "purple.500",
-      color: "white",
+      bg: "alert.3",
+      color: "alert.1",
+      _hover: {
+        bg: "alert.2",
+      },
     },
     sucess: {
-      bg: "purple.500",
-      color: "white",
+      bg: "sucess.3",
+      color: "sucess.1",
+      _hover: {
+        bg: "sucess.2",
+      },
     },
     brandDisable: {
-      bg: "purple.500",
-      color: "white",
+      bg: "brand.3",
+      color: "brand.4",
     },
   },
 
