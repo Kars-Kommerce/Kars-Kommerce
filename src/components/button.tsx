@@ -5,24 +5,18 @@ export const Button = defineStyleConfig({
     fontWeight: "600",
     borderRadius: "4px",
     fontFamily: "Inter",
-    _hover: {
-      borderColor: "transparent",
-    },
-    _focus: {
-      outline: "none",
-    },
   },
 
   sizes: {
     big: {
-      fontSize: "sm",
-      px: 5,
-      py: 4,
-    },
-    medium: {
       fontSize: "md",
       px: 7,
       py: 4,
+    },
+    medium: {
+      fontSize: "sm",
+      px: 5,
+      py: 3,
     },
   },
 
