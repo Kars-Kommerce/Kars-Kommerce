@@ -1,16 +1,16 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
-import GlobalStyle from "./styles/global";
+// import "./App.css";
+
+import { AspectRatio, Box, Button, Container } from "@chakra-ui/react";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <GlobalStyle />
-    </>
+    <AspectRatio maxW="1024px" ratio={1} margin={"0 auto"} h={"100vh"}>
+      <iframe
+        title="naruto"
+        src="https://www.youtube.com/embed/QhBnZ6NPOY0"
+        allowFullScreen
+      />
+    </AspectRatio>
   );
 }
 
