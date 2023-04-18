@@ -1,20 +1,21 @@
-// import "./App.css";
-
-import { AspectRatio, Box, Button, Container } from "@chakra-ui/react";
-import Footer from "./components/footer";
+import { Container } from "@chakra-ui/react";
+import Footer from "./components/Footer";
+import Banner from "./components/Banner";
 
 function App() {
   return (
-    <>
-      <AspectRatio maxW="1024px" ratio={1} margin={"0 auto"} h={"100vh"}>
-        <iframe
-          title="naruto"
-          src="https://www.youtube.com/embed/QhBnZ6NPOY0"
-          allowFullScreen
-        />
-      </AspectRatio>
+    <Container
+      minH={"100vh"}
+      maxW={"1600px"}
+      w={"100vw"}
+      display={"flex"}
+      flexDirection={"column"}
+      justifyContent={"space-between"}
+      padding={0}
+    >
+      <Banner image={"/src/assets/background_car.png"} />
       <Footer></Footer>
-    </>
+    </Container>
   );
 }
 

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
-import UserCard from "./userCard";
-import Tag from "./tag";
+import UserCard from "../UserCard";
+import Tag from "../Tag";
 
 interface IAdsAuthorProps {
   id: string;
