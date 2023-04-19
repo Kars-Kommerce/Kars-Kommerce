@@ -47,7 +47,7 @@ const mockedProduct: IAdvertisementResponseProps = {
 
 const ProductCardContainer = styled.div`
   max-width: 312px;
-  width: 100%;
+  min-width: 312px;
 
   > div {
     :nth-child(1) {
