@@ -12,11 +12,15 @@ export const Button = defineStyleConfig({
       fontSize: "md",
       px: 7,
       py: 4,
+      h: "48px",
+      w: "146px",
     },
     medium: {
       fontSize: "sm",
       px: 5,
       py: 3,
+      h: "38px",
+      w: "119px",
     },
   },
 
@@ -54,7 +58,7 @@ export const Button = defineStyleConfig({
       bg: "grey.10",
       color: "grey.1",
     },
-    outilineLight: {
+    outlineLight: {
       border: "2px solid",
       borderColor: "grey.10",
       bg: "transparent",
@@ -64,7 +68,7 @@ export const Button = defineStyleConfig({
         color: "grey.1",
       },
     },
-    outiline1: {
+    outline1: {
       border: "2px solid",
       borderColor: "grey.0",
       bg: "transparent",
@@ -74,7 +78,7 @@ export const Button = defineStyleConfig({
         color: "grey.white",
       },
     },
-    outiline2: {
+    outline2: {
       border: "2px solid",
       borderColor: "grey.4",
       bg: "transparent",
@@ -85,7 +89,7 @@ export const Button = defineStyleConfig({
         borderColor: "grey.1",
       },
     },
-    outilineBrand1: {
+    outlineBrand1: {
       border: "2px solid",
       borderColor: "brand.1",
       bg: "transparent",

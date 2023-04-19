@@ -6,7 +6,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/button";
-import Logo from "../Logo";
+import { LogoWhite } from "../Logo";
 
 const Footer = () => {
   return (
@@ -23,7 +23,7 @@ const Footer = () => {
         justify={{ base: "center", md: "space-between" }}
         align={{ base: "center", md: "center" }}
       >
-        <Logo />
+        <LogoWhite />
         <Text color={"grey.white"} fontSize={"14px"}>
           © 2022 - Todos os direitos reservados.
         </Text>
