@@ -1,11 +1,8 @@
-
 import { Container } from "@chakra-ui/react";
 import Footer from "./components/Footer";
 import Banner from "./components/Banner";
-import ProductCard from "./components/ProductCard";
 import ListProductsCard from "./components/ListProductCard/listProductCard";
 import Navbar from "./components/Navbar";
-import AnnouncerCard from "./components/announcerCard";
 
 function App() {
   return (
@@ -23,7 +20,6 @@ function App() {
       <ListProductsCard />
       <Footer></Footer>
     </Container>
-
   );
 }
 
