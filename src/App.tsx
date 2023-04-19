@@ -1,3 +1,4 @@
+
 import { Container } from "@chakra-ui/react";
 import Footer from "./components/Footer";
 import Banner from "./components/Banner";
@@ -23,6 +24,7 @@ function App() {
       ></AnnouncerCard>
       <Footer></Footer>
     </Container>
+
   );
 }
 
