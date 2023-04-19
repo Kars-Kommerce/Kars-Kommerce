@@ -1,33 +1,30 @@
-// import "./App.css";
 
-import { AspectRatio, Box, Button, Container } from "@chakra-ui/react";
-import Footer from "./components/footer";
-import DetailedAd from "./components/DetailedAd";
-const tags = [
-  {
-    tag: "2003",
-    href: "http://google.com"
-  },
-  {
-    tag: "0KM",
-    href: "http://google.com"
-  }
-]
-
+import { Container } from "@chakra-ui/react";
+import Footer from "./components/Footer";
+import Banner from "./components/Banner";
+import AnnouncerCard from "./components/announcerCard";
 
 function App() {
   return (
-    <>
-      {/* <AspectRatio maxW="1024px" ratio={1} margin={"0 auto"} h={"100vh"}>
-        <iframe
-          title="naruto"
-          src="https://www.youtube.com/embed/QhBnZ6NPOY0"
-          allowFullScreen
-        />
-      </AspectRatio>
-      <Footer></Footer> */}
-      <DetailedAd title={'Mercedes Benz A 200 CGI ADVANCE SEDAN Mercedes Benz A 200 '} tags={tags}  price={23000000}></DetailedAd>
-    </>
+    <Container
+      minH={"100vh"}
+      maxW={"1600px"}
+      w={"100vw"}
+      display={"flex"}
+      flexDirection={"column"}
+      justifyContent={"space-between"}
+      padding={0}
+    >
+      <Banner image={"/src/assets/background_car.png"} />
+      <AnnouncerCard
+      description={'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore incidunt atque saepe exercitationem eveniet maxime libero molestias, nam numquam recusandae consectetur ab ut nobis, odio aspernatur provident accusamus ad temporibus?'}
+      authorName={'Leo Costa'}
+      link= "google.com"
+      
+      ></AnnouncerCard>
+      <Footer></Footer>
+    </Container>
+
   );
 }
 
