@@ -1,11 +1,12 @@
 import { extendTheme } from "@chakra-ui/react";
-import { Button } from "../components/button";
+import { Button } from "../components/Button";
+
 const theme = extendTheme({
   fonts: {
     heading: "Lexend, sans-serif",
     body: "Inter, sans-serif",
   },
-  fontSize: {
+  fontSizes: {
     h1: "2.75rem",
     h2: "2.25rem",
     h3: "2rem",
