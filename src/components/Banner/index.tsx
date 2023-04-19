@@ -9,7 +9,7 @@ const Banner = ({ image }: any) => {
         backgroundRepeat={"no-repeat"}
         backgroundPosition={"center"}
         backgroundImage={`url(${image})`}
-        minW={"100vw"}
+        minW={"100%"}
         h={"500px"}
         padding={0}
         margin={0}
@@ -34,7 +34,7 @@ const Banner = ({ image }: any) => {
               <Heading fontSize={"h1"} fontWeight={700}>
                 Motors Shop
               </Heading>
-              <Heading fontSize={"h2"} fontWeight={600}>
+              <Heading maxW={"80%"} fontSize={"h2"} fontWeight={600}>
                 A melhor plataforma de anúncios de carros do país
               </Heading>
             </>
@@ -43,7 +43,7 @@ const Banner = ({ image }: any) => {
               <Heading marginTop={"76px"} fontSize={"h3"} fontWeight={500}>
                 Motors Shop
               </Heading>
-              <Heading fontSize={"h5"} fontWeight={500}>
+              <Heading maxW={"80%"} fontSize={"h5"} fontWeight={500}>
                 A melhor plataforma de anúncios de carros do país
               </Heading>
             </>
