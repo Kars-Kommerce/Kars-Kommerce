@@ -82,11 +82,21 @@ const MobileNav = () => {
     <Stack
       bg={useColorModeValue("white", "gray.800")}
       p={4}
-      display={{ md: "none" }}
+      display={{ base: "flex", md: "none" }}
     >
-      {NAV_ITEMS.map((navItem) => (
-        <MobileNavItem key={navItem.label} {...navItem} />
-      ))}
+      <Flex
+        flexDirection={"column"}
+        gap={"1rem"}
+        alignSelf={"center"}
+        w={"100%"}
+      >
+        <Link fontWeight={"600"} color={"grey.2"} fontSize={"b1"}>
+          Fazer Login
+        </Link>
+        <Button variant={"outline2"} maxW={"333px"} w={"90%"}>
+          Cadastrar
+        </Button>
+      </Flex>
     </Stack>
   );
 };
@@ -153,41 +163,11 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   {
-    label: "Inspiration",
-    children: [
-      {
-        label: "Explore Design Work",
-        subLabel: "Trending Design to inspire you",
-        href: "#",
-      },
-      {
-        label: "New & Noteworthy",
-        subLabel: "Up-and-coming Designers",
-        href: "#",
-      },
-    ],
-  },
-  {
-    label: "Find Work",
-    children: [
-      {
-        label: "Job Board",
-        subLabel: "Find your dream design job",
-        href: "#",
-      },
-      {
-        label: "Freelance Projects",
-        subLabel: "An exclusive list for contract work",
-        href: "#",
-      },
-    ],
-  },
-  {
-    label: "Learn Design",
+    label: "Login",
     href: "#",
   },
   {
-    label: "Hire Designers",
+    label: "Cadastro",
     href: "#",
   },
 ];

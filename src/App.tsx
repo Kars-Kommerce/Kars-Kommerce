@@ -3,6 +3,8 @@ import Footer from "./components/Footer";
 import Banner from "./components/Banner";
 import ListProductsCard from "./components/ListProductCard/listProductCard";
 import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Product from "./pages/Product";
 
 function App() {
   return (
@@ -16,8 +18,7 @@ function App() {
       padding={0}
     >
       <Navbar />
-      <Banner image={"/src/assets/background_car.png"} />
-      <ListProductsCard />
+      <Home />
       <Footer></Footer>
     </Container>
   );

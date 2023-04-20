@@ -79,7 +79,7 @@ export default function Filter() {
   ];
 
   return (
-    <Box p={2} margin={"20px"}>
+    <Box p={2} margin={"20px"} display={{ base: "none", md: "initial" }}>
       <VStack spacing={8} align="stretch">
         <Container display={"flex"} flexDirection={"column"}>
           <Heading size="md" mb={4} fontSize={"28px"} fontWeight={"600"}>
