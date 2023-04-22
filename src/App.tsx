@@ -16,6 +16,7 @@ function App() {
       flexDirection={"column"}
       justifyContent={"space-between"}
       padding={0}
+      bg={'grey.8'}
     >
       <Navbar />
       <Home />
