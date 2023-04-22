@@ -1,6 +1,6 @@
 import { Box, Container, Heading, useMediaQuery } from "@chakra-ui/react";
 
-const Banner = ({ image }: any) => {
+const Banner = () => {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   return (
     <>
@@ -8,7 +8,7 @@ const Banner = ({ image }: any) => {
         backgroundSize={"cover"}
         backgroundRepeat={"no-repeat"}
         backgroundPosition={"center"}
-        backgroundImage={`url(${image})`}
+        backgroundImage={`url(src/assets/background_car.png)`}
         minW={"100%"}
         h={"500px"}
         padding={0}

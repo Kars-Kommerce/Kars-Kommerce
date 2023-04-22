@@ -3,8 +3,8 @@ import Footer from "./components/Footer";
 import Banner from "./components/Banner";
 import ListProductsCard from "./components/ListProductCard/listProductCard";
 import Navbar from "./components/Navbar";
-import LoginForm from "./components/LoginForm";
-import RegisterForm from "./components/RegisterForm";
+import Home from "./pages/Home";
+import Product from "./pages/Product";
 
 function App() {
   return (
@@ -19,9 +19,7 @@ function App() {
       bg={'grey.8'}
     >
       <Navbar />
-      {/* <Banner image={"/src/assets/background_car.png"} />
-      <ListProductsCard /> */}
-      <RegisterForm></RegisterForm>
+      <Home />
       <Footer></Footer>
     </Container>
   );

@@ -23,10 +23,10 @@ interface ITagProps {
 const Tag = ({ tags }: ITagProps) => {
   return (
     <TagContainer>
-      {tags.map((el) => {
+      {tags.map((el, i) => {
         return (
           <>
-            <span key={el.tag}>{el.tag}</span>
+            <span key={`${el.tag}-${i}`}>{el.tag}</span>
           </>
         );
       })}

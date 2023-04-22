@@ -6,16 +6,18 @@ const DescriptionCard = () => {
     <>
       <Box
         p={4}
-        w="751px"
-        h="213px"
+        w="90%"
+        maxW={"750px"}
+        maxH="352px"
         borderRadius="4px"
         display="flex"
         flexDirection="column"
         justifyContent="center"
         alignItems="flex-start"
         gap="32px"
-        bg="#FDFDFD"
+        bg="grey.10"
         padding="36px 44px"
+        alignSelf={"center"}
       >
         <Heading size="md" mb={4}>
           Description

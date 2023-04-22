@@ -13,6 +13,9 @@ const UserCardContainer = styled.div`
     align-items: center;
     justify-content: center;
   }
+  > span {
+    font-weight: 600;
+  }
 `;
 
 interface UserCardProps {
