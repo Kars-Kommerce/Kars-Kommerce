@@ -7,7 +7,6 @@ const ListProductsCard = () => {
   return (
     <Box>
       <Flex marginBottom={"30px"} mt={12} w={"100%"}>
-        <Filter />
         <Flex
           flexWrap={isLargerThan768 ? "wrap" : "nowrap"}
           overflow={"auto"}
@@ -15,6 +14,10 @@ const ListProductsCard = () => {
           justify={isLargerThan768 ? "center" : "flex-start"}
           px={"1rem"}
         >
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
           <ProductCard />
           <ProductCard />
           <ProductCard />

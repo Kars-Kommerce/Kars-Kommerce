@@ -8,7 +8,7 @@ import {
   Avatar,
   Link,
 } from "@chakra-ui/react";
-const AnnouncerCard = ({ authorName, description, link }: any) => {
+const AnnouncerCard = ({ authorName, bio, link }: any) => {
   return (
     <>
       <Card
@@ -34,7 +34,7 @@ const AnnouncerCard = ({ authorName, description, link }: any) => {
               {authorName}{" "}
             </Heading>
             <Text textAlign={"center"} color={"grey.2"} noOfLines={3}>
-              {description}
+              {bio}
             </Text>
           </Stack>
         </CardBody>
