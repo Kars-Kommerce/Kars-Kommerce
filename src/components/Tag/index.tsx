@@ -8,6 +8,7 @@ const TagContainer = styled.div`
     padding: 4px 8px;
     background-color: #edeafd;
     color: #4529e6 !important;
+    font-weight: 600;
   }
 `;
 

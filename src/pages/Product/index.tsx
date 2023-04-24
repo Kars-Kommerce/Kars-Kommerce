@@ -43,7 +43,7 @@ const Product = () => {
           <Galery />
           <AnnouncerCard
             authorName={"Igor Torres"}
-            description={
+            bio={
               "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem..."
             }
           />

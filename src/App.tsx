@@ -1,10 +1,9 @@
 import { Container } from "@chakra-ui/react";
 import Footer from "./components/Footer";
-import Banner from "./components/Banner";
-import ListProductsCard from "./components/ListProductCard/listProductCard";
 import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import Product from "./pages/Product";
+import AnnouncerPerfilCard from "./components/AnnouncerPerfilCard";
+import { author } from "./utils/Mock";
+import AnnouncerProfile from "./pages/AnnouncerProfile";
 
 function App() {
   return (
@@ -16,10 +15,10 @@ function App() {
       flexDirection={"column"}
       justifyContent={"space-between"}
       padding={0}
-      bg={'grey.8'}
+      bg={"grey.8"}
     >
       <Navbar />
-      <Home />
+      <AnnouncerProfile />
       <Footer></Footer>
     </Container>
   );
