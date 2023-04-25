@@ -1,8 +1,7 @@
 import { Container } from "@chakra-ui/react";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
-import AnnouncerPerfilCard from "./components/AnnouncerPerfilCard";
-import { author } from "./utils/Mock";
+import Routes from "./routes";
 import AnnouncerProfile from "./pages/AnnouncerProfile";
 import { UserProvider } from "./context";
 import Home from "./pages/Home";
@@ -21,7 +20,7 @@ function App() {
     >
       <UserProvider>
         <Navbar />
-        <Home />
+        <Routes />
         <Footer></Footer>
       </UserProvider>
     </Container>
