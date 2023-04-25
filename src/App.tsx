@@ -2,8 +2,7 @@ import { Container } from "@chakra-ui/react";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Routes from "./routes";
-
-
+import AnnouncerProfile from "./pages/AnnouncerProfile";
 function App() {
   return (
     <Container
@@ -14,9 +13,11 @@ function App() {
       flexDirection={"column"}
       justifyContent={"space-between"}
       padding={0}
+      bg={"grey.8"}
     >
       <Navbar />
       <Routes/>
+      {/* <AnnouncerProfile /> */}
       <Footer></Footer>
     </Container>
   );

@@ -1,16 +1,18 @@
 import { Box, Container, Flex, useMediaQuery } from "@chakra-ui/react";
 import ProductCard from "../ProductCard";
+import Filter from "../Filter/filter";
 
 const ListProductsCard = () => {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   return (
     <Box>
-      <Container marginBottom={"30px"} maxW={"5xl"} mt={12}>
+      <Flex marginBottom={"30px"} mt={12} w={"100%"}>
         <Flex
           flexWrap={isLargerThan768 ? "wrap" : "nowrap"}
           overflow={"auto"}
-          gridGap={6}
+          gap={"2rem"}
           justify={isLargerThan768 ? "center" : "flex-start"}
+          px={"1rem"}
         >
           <ProductCard />
           <ProductCard />
@@ -24,8 +26,12 @@ const ListProductsCard = () => {
           <ProductCard />
           <ProductCard />
           <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
         </Flex>
-      </Container>
+      </Flex>
     </Box>
   );
 };

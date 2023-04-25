@@ -1,10 +1,11 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import AnnouncerProfile from '../pages/AnnouncerProfile';
+import AnnouncerCard from '../components/AnnouncerCard';
+import Footer from '../components/Footer';
 
 const RoutesMain = () => (
   <Router>
     <Routes>
-      <Route path="/profile" element={<AnnouncerProfile></AnnouncerProfile>} />
+      <Route path="/teste" element={<h1>teste</h1>}/>
     </Routes>
   </Router>
 );
