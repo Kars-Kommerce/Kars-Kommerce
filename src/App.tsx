@@ -1,10 +1,8 @@
 import { Container } from "@chakra-ui/react";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
-import AnnouncerPerfilCard from "./components/AnnouncerPerfilCard";
-import { author } from "./utils/Mock";
+import Routes from "./routes";
 import AnnouncerProfile from "./pages/AnnouncerProfile";
-
 function App() {
   return (
     <Container
@@ -18,7 +16,8 @@ function App() {
       bg={"grey.8"}
     >
       <Navbar />
-      <AnnouncerProfile />
+      <Routes/>
+      {/* <AnnouncerProfile /> */}
       <Footer></Footer>
     </Container>
   );

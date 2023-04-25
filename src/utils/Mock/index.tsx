@@ -25,7 +25,7 @@ export interface IAdvertisementResponseProps {
 
 export const author: IAdsAuthorProps = {
   id: uuidv4(),
-  name: "Igor Torres",
+  name: "Lulu da Pomerania",
   bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Nascetur ridiculus mus mauris vitae ultricies. Cursus mattis molestie a iaculis at erat. Tristique risus nec feugiat in fermentum posuere urna nec tincidunt. Cras adipiscing enim eu turpis egestas. Phasellus faucibus scelerisque eleifend donec pretium. Tortor condimentum lacinia quis vel eros donec ac odio tempor. Justo eget magna fermentum iaculis eu non diam phasellus vestibulum. Faucibus scelerisque eleifend donec pretium. Tincidunt arcu non sodales neque sodales. Ut etiam sit amet nisl purus in mollis nunc sed. Duis at tellus at urna condimentum.",
   is_advertiser: true,
 };
