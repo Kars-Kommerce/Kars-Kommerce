@@ -1,8 +1,8 @@
 import { Container } from "@chakra-ui/react";
 import Footer from "./components/Footer";
-import Banner from "./components/Banner";
-import ListProductsCard from "./components/ListProductCard/listProductCard";
 import Navbar from "./components/Navbar";
+import Routes from "./routes";
+
 
 function App() {
   return (
@@ -16,8 +16,7 @@ function App() {
       padding={0}
     >
       <Navbar />
-      <Banner image={"/src/assets/background_car.png"} />
-      <ListProductsCard />
+      <Routes/>
       <Footer></Footer>
     </Container>
   );
