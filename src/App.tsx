@@ -4,6 +4,8 @@ import Navbar from "./components/Navbar";
 import AnnouncerPerfilCard from "./components/AnnouncerPerfilCard";
 import { author } from "./utils/Mock";
 import AnnouncerProfile from "./pages/AnnouncerProfile";
+import { UserProvider } from "./context";
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -17,9 +19,11 @@ function App() {
       padding={0}
       bg={"grey.8"}
     >
-      <Navbar />
-      <AnnouncerProfile />
-      <Footer></Footer>
+      <UserProvider>
+        <Navbar />
+        <Home />
+        <Footer></Footer>
+      </UserProvider>
     </Container>
   );
 }

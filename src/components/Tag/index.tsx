@@ -25,11 +25,7 @@ const Tag = ({ tags }: ITagProps) => {
   return (
     <TagContainer>
       {tags.map((el, i) => {
-        return (
-          <>
-            <span key={`${el.tag}-${i}`}>{el.tag}</span>
-          </>
-        );
+        return <span key={`${el.tag}-${i}`}>{el.tag}</span>;
       })}
     </TagContainer>
   );

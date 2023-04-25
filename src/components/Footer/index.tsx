@@ -34,6 +34,7 @@ const Footer = () => {
             onClick={() => {
               window.scrollTo(0, 0);
             }}
+            size={"md"}
             aria-label="Voltar para o topo do site"
           >
             <svg

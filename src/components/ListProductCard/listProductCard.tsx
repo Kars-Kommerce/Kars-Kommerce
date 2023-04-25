@@ -1,8 +1,35 @@
 import { Box, Container, Flex, useMediaQuery } from "@chakra-ui/react";
 import ProductCard from "../ProductCard";
 import Filter from "../Filter/filter";
+import { UserContext } from "../../context";
+import { useContext } from "react";
 
-const ListProductsCard = () => {
+interface IListProps {
+  array: IAdvertisementResponse[];
+}
+interface IAdsAuthor {
+  id: string;
+  name: string;
+  bio: string;
+  is_advertiser: boolean;
+}
+interface IAdvertisementResponse {
+  id: number;
+  author: IAdsAuthor;
+  title: string;
+  description: string;
+  model: string;
+  brand: string;
+  year: number;
+  fuel: number;
+  fuel_type: string;
+  is_active: boolean;
+  price: number;
+  created_at: Date;
+  updated_at: Date;
+}
+
+const ListProductsCard = ({ array }: IListProps) => {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   return (
     <Box>
@@ -14,22 +41,9 @@ const ListProductsCard = () => {
           justify={isLargerThan768 ? "center" : "flex-start"}
           px={"1rem"}
         >
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          {array.map((el, i) => (
+            <ProductCard key={`${el.title}-${i}`} product={el} />
+          ))}
         </Flex>
       </Flex>
     </Box>
