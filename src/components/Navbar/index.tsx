@@ -10,12 +10,19 @@ import {
   Link,
   useColorModeValue,
   useDisclosure,
+  Avatar,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { LogoBlack } from "../Logo";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../context/user.context";
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
+  const { user, logout } = useContext(UserContext);
+
+  const navigate = useNavigate();
 
   return (
     <Box>
@@ -35,23 +42,50 @@ export default function Navbar() {
           maxW={"fit-content"}
           flex={{ base: 1 }}
           justify={"start"}
+          onClick={() => navigate("/")}
         >
           <LogoBlack />
         </Flex>
+        {user ? (
+          <Stack
+            flex={{ base: 1, md: 0 }}
+            display={{ base: "none", md: "flex" }}
+            justify={"flex-start"}
+            direction={"row"}
+            spacing={2}
+            borderLeft={"2px solid"}
+            borderColor={"grey.6"}
+            paddingLeft={"20px"}
+            alignItems={"center"}
+            minW={"25%"}
+            minH={"100%"}
+            onClick={logout}
+          >
+            <Avatar bg={"brand.1"} size={"sm"} name={user.name} />
+            <Text>{user.name}</Text>
+          </Stack>
+        ) : (
+          <Stack
+            flex={{ base: 1, md: 0 }}
+            display={{ base: "none", md: "flex" }}
+            justify={"flex-end"}
+            direction={"row"}
+            spacing={6}
+            borderLeft={"2px solid"}
+            borderColor={"grey.6"}
+            paddingLeft={"20px"}
+            minH={"100%"}
+            alignItems={"center"}
+          >
+            <Button onClick={() => navigate("/login")} variant={"linkButton"}>
+              Fazer Login
+            </Button>
+            <Button onClick={() => navigate("/register")} variant={"outline2"}>
+              Cadastrar
+            </Button>
+          </Stack>
+        )}
 
-        <Stack
-          flex={{ base: 1, md: 0 }}
-          display={{ base: "none", md: "flex" }}
-          justify={"flex-end"}
-          direction={"row"}
-          spacing={6}
-          borderLeft={"2px solid"}
-          borderColor={"grey.6"}
-          paddingLeft={"20px"}
-        >
-          <Button variant={"linkButton"}>Fazer Login</Button>
-          <Button variant={"outline2"}>Cadastrar</Button>
-        </Stack>
         <Flex
           flex={{ base: 1, md: "auto" }}
           ml={{ base: -2 }}
@@ -78,6 +112,8 @@ export default function Navbar() {
 }
 
 const MobileNav = () => {
+  const navigate = useNavigate();
+
   return (
     <Stack
       bg={useColorModeValue("white", "gray.800")}
@@ -90,10 +126,20 @@ const MobileNav = () => {
         alignSelf={"center"}
         w={"100%"}
       >
-        <Link fontWeight={"600"} color={"grey.2"} fontSize={"b1"}>
+        <Link
+          onClick={() => navigate("/login")}
+          fontWeight={"600"}
+          color={"grey.2"}
+          fontSize={"b1"}
+        >
           Fazer Login
         </Link>
-        <Button variant={"outline2"} maxW={"333px"} w={"90%"}>
+        <Button
+          onClick={() => navigate("/register")}
+          variant={"outline2"}
+          maxW={"333px"}
+          w={"90%"}
+        >
           Cadastrar
         </Button>
       </Flex>

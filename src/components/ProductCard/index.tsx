@@ -95,7 +95,12 @@ const ProductCard = ({ product }: IProdctCardProps) => {
         <div>
           <Tag tags={[{ tag: "0 KM" }, { tag: product.year }]} />
           <span>
-            <strong>R$ {product.price.toFixed(2)}</strong>
+            <strong>
+              {product.price.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              })}
+            </strong>
           </span>
         </div>
       </div>

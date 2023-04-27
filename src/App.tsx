@@ -2,15 +2,14 @@ import { Container } from "@chakra-ui/react";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Routes from "./routes";
-import AnnouncerProfile from "./pages/AnnouncerProfile";
-import { UserProvider } from "./context";
-import Home from "./pages/Home";
+import { UserProvider } from "./context/user.context";
+import { AdsProvider } from "./context/ads.context";
 
 function App() {
   return (
     <Container
       minH={"100vh"}
-      maxW={"100%"}
+      maxW={"100vw"}
       w={"100vw"}
       display={"flex"}
       flexDirection={"column"}
@@ -18,11 +17,9 @@ function App() {
       padding={0}
       bg={"grey.8"}
     >
-      <UserProvider>
-        <Navbar />
-        <Routes />
-        <Footer></Footer>
-      </UserProvider>
+      <Navbar />
+      <Routes />
+      <Footer />
     </Container>
   );
 }

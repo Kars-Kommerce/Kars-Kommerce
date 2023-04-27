@@ -88,6 +88,7 @@ export default function Filter() {
           {brands.map((brand) => {
             return (
               <Button
+                key={`${brand.name}-${brand.id}`}
                 marginLeft={"4px"}
                 color={"grey.3"}
                 fontSize={"20px"}
@@ -110,9 +111,10 @@ export default function Filter() {
           <Heading size="md" mb={4} fontSize={"28px"} fontWeight={"600"}>
             Modelo
           </Heading>
-          {carModels.map((model) => {
+          {carModels.map((model, i) => {
             return (
               <Button
+                key={`${model.name}-${model.id}`}
                 marginLeft={"4px"}
                 color={"grey.3"}
                 fontSize={"20px"}
@@ -138,6 +140,7 @@ export default function Filter() {
           {carColors.map((color) => {
             return (
               <Button
+                key={`${color.name}-${color.id}`}
                 marginLeft={"4px"}
                 color={"grey.3"}
                 fontSize={"20px"}
@@ -163,6 +166,7 @@ export default function Filter() {
           {years.map((year) => {
             return (
               <Button
+                key={`${year.name}-${year.id}`}
                 marginLeft={"4px"}
                 color={"grey.3"}
                 fontSize={"20px"}
@@ -188,6 +192,7 @@ export default function Filter() {
           {carType.map((car) => {
             return (
               <Button
+                key={`${car.name}-${car.id}`}
                 marginLeft={"4px"}
                 color={"grey.3"}
                 fontSize={"20px"}

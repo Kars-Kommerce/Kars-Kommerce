@@ -32,14 +32,17 @@ interface IAdvertisementResponse {
 const ListProductsCard = ({ array }: IListProps) => {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   return (
-    <Box>
+    <Box overflow={"hidden"}>
       <Flex marginBottom={"30px"} mt={12} w={"100%"}>
         <Flex
           flexWrap={isLargerThan768 ? "wrap" : "nowrap"}
-          overflow={"auto"}
+          overflowX={"scroll"}
           gap={"2rem"}
-          justify={isLargerThan768 ? "center" : "flex-start"}
+          // justify={isLargerThan768 ? "center" : "flex-start"}
+          justify={"flex-start"}
           px={"1rem"}
+          alignSelf={"flex-start"}
+          // maxW={"100vw"}
         >
           {array.map((el, i) => (
             <ProductCard key={`${el.title}-${i}`} product={el} />
