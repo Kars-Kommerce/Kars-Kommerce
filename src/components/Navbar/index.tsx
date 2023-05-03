@@ -6,11 +6,14 @@ import {
   Button,
   Stack,
   Collapse,
-  Icon,
   Link,
   useColorModeValue,
   useDisclosure,
   Avatar,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { LogoBlack } from "../Logo";
@@ -47,23 +50,45 @@ export default function Navbar() {
           <LogoBlack />
         </Flex>
         {user ? (
-          <Stack
-            flex={{ base: 1, md: 0 }}
-            display={{ base: "none", md: "flex" }}
-            justify={"flex-start"}
-            direction={"row"}
-            spacing={2}
-            borderLeft={"2px solid"}
-            borderColor={"grey.6"}
-            paddingLeft={"20px"}
-            alignItems={"center"}
-            minW={"25%"}
-            minH={"100%"}
-            onClick={logout}
-          >
-            <Avatar bg={"brand.1"} size={"sm"} name={user.name} />
-            <Text>{user.name}</Text>
-          </Stack>
+          <Menu>
+            <MenuButton
+              minW={"25%"}
+              minH={"100%"}
+              as={Button}
+              bg={"transparent"}
+              _hover={{ bg: "none" }}
+              py={0}
+              borderLeft={"2px solid"}
+              borderColor={"grey.6"}
+              borderRadius={0}
+              display={{ base: "none", md: "flex" }}
+            >
+              <Stack
+                flex={{ base: 1, md: 0 }}
+                display={{ base: "none", md: "flex" }}
+                justify={"flex-start"}
+                direction={"row"}
+                spacing={2}
+                paddingLeft={"20px"}
+                alignItems={"center"}
+                minW={"25%"}
+                minH={"100%"}
+              >
+                <Avatar bg={"brand.1"} size={"sm"} name={user.name} />
+                <Text color={"grey.2"}>{user.name}</Text>
+              </Stack>
+            </MenuButton>
+            <MenuList>
+              <MenuItem>Editar Perfil</MenuItem>
+              <MenuItem>Editar Endereço</MenuItem>
+              {user.is_advertiser && (
+                <MenuItem onClick={() => navigate("/profile")}>
+                  Meus Anúncios
+                </MenuItem>
+              )}
+              <MenuItem onClick={logout}>Sair</MenuItem>
+            </MenuList>
+          </Menu>
         ) : (
           <Stack
             flex={{ base: 1, md: 0 }}
@@ -113,6 +138,7 @@ export default function Navbar() {
 
 const MobileNav = () => {
   const navigate = useNavigate();
+  const { user, logout } = useContext(UserContext);
 
   return (
     <Stack
@@ -126,94 +152,55 @@ const MobileNav = () => {
         alignSelf={"center"}
         w={"100%"}
       >
-        <Link
-          onClick={() => navigate("/login")}
-          fontWeight={"600"}
-          color={"grey.2"}
-          fontSize={"b1"}
-        >
-          Fazer Login
-        </Link>
-        <Button
-          onClick={() => navigate("/register")}
-          variant={"outline2"}
-          maxW={"333px"}
-          w={"90%"}
-        >
-          Cadastrar
-        </Button>
-      </Flex>
-    </Stack>
-  );
-};
-
-const MobileNavItem = ({ label, children, href }: NavItem) => {
-  const { isOpen, onToggle } = useDisclosure();
-
-  return (
-    <Stack spacing={4} onClick={children && onToggle}>
-      <Flex
-        py={2}
-        as={Link}
-        href={href ?? "#"}
-        justify={"space-between"}
-        align={"center"}
-        _hover={{
-          textDecoration: "none",
-        }}
-      >
-        <Text
-          fontWeight={600}
-          color={useColorModeValue("gray.600", "gray.200")}
-        >
-          {label}
-        </Text>
-        {children && (
-          <Icon
-            as={ChevronDownIcon}
-            transition={"all .25s ease-in-out"}
-            transform={isOpen ? "rotate(180deg)" : ""}
-            w={6}
-            h={6}
-          />
+        {user ? (
+          <Flex
+            align={"center"}
+            alignSelf={"center"}
+            direction={"column"}
+            w={"90%"}
+            h={"100%"}
+            gap={"1rem"}
+          >
+            <Button variant={"linkButton"} w={"90%"}>
+              Editar Perfil
+            </Button>
+            <Button variant={"linkButton"} w={"90%"}>
+              Editar Endereço
+            </Button>
+            {user.is_advertiser && (
+              <Button
+                onClick={() => navigate("/profile")}
+                variant={"linkButton"}
+                w={"90%"}
+              >
+                Meus anuncios
+              </Button>
+            )}
+            <Button onClick={logout} variant={"linkButton"} w={"90%"}>
+              Sair
+            </Button>
+          </Flex>
+        ) : (
+          <>
+            <Link
+              onClick={() => navigate("/login")}
+              fontWeight={"600"}
+              color={"grey.2"}
+              fontSize={"b1"}
+            >
+              Fazer Login
+            </Link>
+            <Button
+              onClick={() => navigate("/register")}
+              variant={"outline2"}
+              maxW={"333px"}
+              w={"90%"}
+            >
+              Cadastrar
+            </Button>
+          </>
         )}
       </Flex>
-
-      <Collapse in={isOpen} animateOpacity style={{ marginTop: "0!important" }}>
-        <Stack
-          mt={2}
-          pl={4}
-          borderLeft={1}
-          borderStyle={"solid"}
-          borderColor={useColorModeValue("gray.200", "gray.700")}
-          align={"start"}
-        >
-          {children &&
-            children.map((child) => (
-              <Link key={child.label} py={2} href={child.href}>
-                {child.label}
-              </Link>
-            ))}
-        </Stack>
-      </Collapse>
     </Stack>
   );
 };
-
-interface NavItem {
-  label: string;
-  subLabel?: string;
-  children?: NavItem[];
-  href?: string;
-}
-
-const NAV_ITEMS: NavItem[] = [
-  {
-    label: "Login",
-    href: "#",
-  },
-  {
-    label: "Cadastro",
-    href: "#",
-  },
-];

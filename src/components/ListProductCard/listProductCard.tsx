@@ -1,8 +1,5 @@
-import { Box, Container, Flex, useMediaQuery } from "@chakra-ui/react";
+import { Box, Flex, useMediaQuery } from "@chakra-ui/react";
 import ProductCard from "../ProductCard";
-import Filter from "../Filter/filter";
-import { UserContext } from "../../context";
-import { useContext } from "react";
 
 interface IListProps {
   array: IAdvertisementResponse[];

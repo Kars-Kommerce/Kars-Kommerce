@@ -1,23 +1,15 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import Api from "../utils/Api";
 import { Flex, Spinner, useToast } from "@chakra-ui/react";
-import { IAdsAuthorProps } from "../utils/Mock";
 
 interface IAdsProviderProps {
   children: ReactNode;
 }
-interface IUser {
+interface IAdsAuthorProps {
   id: string;
   name: string;
-  username: string;
-  email: string;
-  cpf: string;
-  cellphone: string;
-  birth_date: string;
   bio: string;
   is_advertiser: boolean;
-  created_at: Date;
-  updated_at: Date;
 }
 interface IAdsResponseProps {
   id: number;
@@ -68,6 +60,7 @@ export function AdsProvider({ children }: IAdsProviderProps) {
       if (loadingAds) {
         try {
           const { data }: IResponseAdsApi = await Api.get(`/ads`);
+          console.log(data);
           setAds(data.data);
         } catch (err) {
           toast({

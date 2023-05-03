@@ -126,17 +126,15 @@ const RegisterForm = () => {
                   >{`${errors.bio.message}`}</Text>
                 )}
               </FormControl>
-              <FormControl id="is_advertiser">
+              <FormControl id="is_advertiser" {...register("is_advertiser")}>
                 <Stack direction="row">
                   <Radio
-                    ref={register}
                     value={"false"}
                     colorScheme={!errors.is_advertiser ? "blue" : "red"}
                   >
                     Comprador
                   </Radio>
                   <Radio
-                    ref={register}
                     value={"true"}
                     colorScheme={!errors.is_advertiser ? "blue" : "red"}
                   >

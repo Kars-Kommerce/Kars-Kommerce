@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import LoginForm from "../components/LoginForm";
 import RegisterForm from "../components/RegisterForm";
 import { Example } from "../components/test";
+import Product from "../pages/Product";
 
 const RoutesMain = () => (
   <Routes>
@@ -11,6 +12,8 @@ const RoutesMain = () => (
     <Route path="/profile" element={<AnnouncerProfile />} />
     <Route path="/login" element={<LoginForm />} />
     <Route path="/register" element={<RegisterForm />} />
+    <Route path="/ads/:id" element={<Product />} />
+    <Route path="/user/:id" element={<AnnouncerProfile />} />
   </Routes>
 );
 

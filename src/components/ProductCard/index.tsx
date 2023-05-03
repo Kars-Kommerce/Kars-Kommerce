@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 import UserCard from "../UserCard";
 import Tag from "../Tag";
+import { useContext } from "react";
+import { UserContext } from "../../context/user.context";
 
 interface IProdctCardProps {
   product: IAdvertisementResponse;
@@ -83,6 +85,8 @@ const ProductCardContainer = styled.div`
 `;
 
 const ProductCard = ({ product }: IProdctCardProps) => {
+  const { user } = useContext(UserContext);
+
   return (
     <ProductCardContainer>
       <div>
@@ -91,7 +95,7 @@ const ProductCard = ({ product }: IProdctCardProps) => {
       <div>
         <h3>{product.title}</h3>
         <p>{product.description}</p>
-        <UserCard authorName={product.author.name} />
+        <UserCard authorName={product.author?.name! || user?.name!} />
         <div>
           <Tag tags={[{ tag: "0 KM" }, { tag: product.year }]} />
           <span>

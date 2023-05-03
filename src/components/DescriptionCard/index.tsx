@@ -1,7 +1,11 @@
 import React from "react";
 import { Box, Heading, Text } from "@chakra-ui/react";
 
-const DescriptionCard = () => {
+interface IDescriptionCardProps {
+  description: string;
+}
+
+const DescriptionCard = ({ description }: IDescriptionCardProps) => {
   return (
     <>
       <Box
@@ -20,14 +24,9 @@ const DescriptionCard = () => {
         alignSelf={"center"}
       >
         <Heading size="md" mb={4}>
-          Description
+          Descrição
         </Heading>
-        <Text fontSize="sm">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure optio
-          eligendi quibusdam dolorem nam sed consequuntur nihil voluptate, dicta
-          veniam error ratione impedit adipisci maxime cupiditate provident,
-          eius illo. Autem?
-        </Text>
+        <Text fontSize="sm">{description}</Text>
       </Box>
     </>
   );

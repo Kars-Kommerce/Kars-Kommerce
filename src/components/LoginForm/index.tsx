@@ -12,9 +12,10 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/user.context";
 import { useNavigate } from "react-router-dom";
+import Loading from "../Loading";
 
 const schema = z.object({
   email: z.string().email(),
@@ -35,13 +36,18 @@ const LoginForm = () => {
 
   const { apiLogin, user } = useContext(UserContext);
 
+  const [loading, setLoading] = useState(true);
+
   const onSubmit = (data: any) => apiLogin(data);
 
   useEffect(() => {
     if (user) {
       navigate("/");
     }
+    setLoading(false);
   }, []);
+
+  loading && <Loading />;
 
   return (
     <Flex minH={"100%"} align={"center"} justify={"center"} bg={"grey.8"}>
