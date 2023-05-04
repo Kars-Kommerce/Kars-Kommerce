@@ -15,7 +15,7 @@ type SendEmailResetPasswordFormInputs = {
   email: string;
 };
 
-const SendEmailResetPasswordForm = () => {
+const SendEmailResetPasswordForm = (): JSX.Element => {
   const navigate = useNavigate();
 
   return (
