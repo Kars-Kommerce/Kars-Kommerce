@@ -19,6 +19,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from "react-router";
 
 const schema = z.object({
   name: z.string().min(2).nonempty(),
@@ -39,6 +40,8 @@ const RegisterForm = () => {
   } = useForm({
     resolver: zodResolver(schema),
   });
+
+  const navigate = useNavigate();
 
   const onSubmit = (data: any) => console.log(data, errors);
 
@@ -154,7 +157,11 @@ const RegisterForm = () => {
                 Cadastrar
               </Button>
             </form>
-            <Link padding={"15px 0 20px 0"} alignSelf={"center"}>
+            <Link
+              padding={"15px 0 20px 0"}
+              alignSelf={"center"}
+              onClick={() => navigate("/login")}
+            >
               Já possui conta?
             </Link>
           </Stack>
