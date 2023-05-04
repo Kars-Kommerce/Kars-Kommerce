@@ -14,7 +14,7 @@ const RoutesMain = () => (
     <Route path="/profile" element={<AnnouncerProfile />} />
     <Route path="/login" element={<LoginForm />} />
     <Route path="/password-reset" element={<SendEmailResetPasswordForm />} />
-    <Route path="/send-password" element={<ResetPasswordForm />} />
+    <Route path="/send-password/:token" element={<ResetPasswordForm />} />
     <Route path="/register" element={<RegisterForm />} />
     <Route path="/ads/:id" element={<Product />} />
     <Route path="/user/:id" element={<AnnouncerProfile />} />

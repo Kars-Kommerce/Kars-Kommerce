@@ -74,7 +74,7 @@ const LoginForm = () => {
                     marginTop="20px"
                     alignSelf={"flex-end"}
                     color={"grey.2"}
-                    onClick={() => navigate("/reset-password")}
+                    onClick={() => navigate("/password-reset")}
                   >
                     Esqueci minha senha
                   </Link>
@@ -98,18 +98,6 @@ const LoginForm = () => {
               onClick={() => navigate("/register")}
             >
               Ainda não possui conta?
-            </Link>
-            <Link
-              textAlign={"center"}
-              w={"100%"}
-              bg={"grey.10"}
-              color={"grey.0"}
-              border={"1px solid"}
-              borderColor={"grey.0"}
-              h={"48px"}
-              padding={"10px"}
-            >
-              Cadastrar
             </Link>
           </Stack>
         </Box>
