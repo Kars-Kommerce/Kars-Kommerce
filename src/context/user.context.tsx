@@ -80,6 +80,15 @@ interface IFormLogin {
   email: string;
   password: string;
 }
+
+interface IFormResetPassword {
+  password: string;
+}
+
+interface IFormSendEmail {
+  email: string;
+}
+
 export interface IFormRegister {
   name: string;
   username: string;
@@ -106,6 +115,8 @@ interface IUserContext {
   logout(): void;
   apiLogin(dataForm: IFormLogin): Promise<void>;
   apiRegister(dataForm: IFormRegister): Promise<void>;
+  apiResetPassword(token: any, dataForm: IFormResetPassword): Promise<void>;
+  apiSendEmail(dataForm: IFormSendEmail): Promise<void>;
   loadingTechs(): void;
 }
 
@@ -208,6 +219,58 @@ export function UserProvider({ children }: IUserProviderProps) {
       });
     }
   }
+
+  async function apiResetPassword(
+    token: any,
+    dataForm: IFormResetPassword
+  ): Promise<void> {
+    try {
+      await Api.put(`/password-reset/${token}`, dataForm);
+      toast({
+        title: "Senha redefinida",
+        description: "Você redefiniu sua senha, redirecionando para o login!",
+        status: "info",
+        duration: 1500,
+        isClosable: true,
+        position: "top-right",
+      });
+      navigate("/login");
+    } catch (err) {
+      toast({
+        title: "Ops!",
+        description: (err as IErro).response.data.message,
+        status: "error",
+        duration: 1500,
+        isClosable: true,
+        position: "top-right",
+      });
+    }
+  }
+
+  async function apiSendEmail(dataForm: IFormSendEmail): Promise<void> {
+    try {
+      await Api.post("/password-reset", dataForm);
+      toast({
+        title: "Email enviado",
+        description: "Você recebera o email em instantes!",
+        status: "info",
+        duration: 1500,
+        isClosable: true,
+        position: "top-right",
+      });
+      navigate("/login");
+    } catch (err) {
+      toast({
+        title: "Ops!",
+        description: (err as IErro).response.data.message,
+        status: "error",
+        duration: 1500,
+        isClosable: true,
+        position: "top-right",
+      });
+    }
+  }
+
   if (loadingUser) {
     return <Loading />;
   }
@@ -220,6 +283,8 @@ export function UserProvider({ children }: IUserProviderProps) {
         logout,
         apiLogin,
         apiRegister,
+        apiResetPassword,
+        apiSendEmail,
         loadingTechs,
       }}
     >

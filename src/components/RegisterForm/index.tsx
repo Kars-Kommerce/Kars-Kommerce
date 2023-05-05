@@ -19,6 +19,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from "react-router";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../../context/user.context";
 import moment from "moment";
@@ -65,6 +66,9 @@ const RegisterForm = () => {
     resolver: zodResolver(schema),
   });
 
+
+  const navigate = useNavigate();
+
   const watchIs_advertiser = watch("is_advertiser");
 
   useEffect(() => {
@@ -79,6 +83,7 @@ const RegisterForm = () => {
     console.log(userData, errors);
     apiRegister(userData);
   };
+
 
   return (
     <Flex minH={"100%"} align={"center"} justify={"center"} bg={"grey.8"}>
@@ -321,7 +326,11 @@ const RegisterForm = () => {
                 Finalizar Cadastro
               </Button>
             </form>
-            <Link padding={"15px 0 20px 0"} alignSelf={"center"}>
+            <Link
+              padding={"15px 0 20px 0"}
+              alignSelf={"center"}
+              onClick={() => navigate("/login")}
+            >
               Já possui conta?
             </Link>
           </Stack>

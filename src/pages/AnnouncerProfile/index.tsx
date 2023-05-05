@@ -5,6 +5,10 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/user.context";
 import { useNavigate, useParams } from "react-router-dom";
 import { Loading } from "@nextui-org/react";
+
+import CommentCard from "../../components/CommentCard";
+import CommentBox from "../../components/CommentsBox";
+
 import Api from "../../utils/Api";
 
 interface IUser {
@@ -131,3 +135,4 @@ const AnnouncerProfile = () => {
 };
 
 export default AnnouncerProfile;
+
