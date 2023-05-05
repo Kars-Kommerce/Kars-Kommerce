@@ -3,21 +3,26 @@ import Banner from "../../components/Banner";
 import ListProductsCard from "../../components/ListProductCard/listProductCard";
 import { AdsContext } from "../../context/ads.context";
 import Filter from "../../components/Filter/filter";
-import { Flex } from "@chakra-ui/react";
+import { Flex, Grid, GridItem } from "@chakra-ui/react";
+import ProductCard from "../../components/ProductCard";
 
 const Home = () => {
   const { ads } = useContext(AdsContext);
   return (
     <>
       <Banner />
-      <Flex
-        width={"100%"}
-        justifyContent={"space-between"}
-        align={"flex-start"}
+
+      <Grid
+        h="100%"
+        templateRows="repeat(4, 1fr)"
+        templateColumns="repeat(4, 1fr)"
+        gap={4}
       >
         <Filter />
-        <ListProductsCard array={ads} />
-      </Flex>
+        <GridItem colSpan={3} rowSpan={4}>
+          <ListProductsCard array={ads} />
+        </GridItem>
+      </Grid>
     </>
   );
 };

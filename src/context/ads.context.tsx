@@ -5,26 +5,38 @@ import { Flex, Spinner, useToast } from "@chakra-ui/react";
 interface IAdsProviderProps {
   children: ReactNode;
 }
-interface IAdsAuthorProps {
+interface IAdsAuthor {
   id: string;
   name: string;
   bio: string;
   is_advertiser: boolean;
 }
-interface IAdsResponseProps {
+
+interface IComments {
   id: number;
-  author: IAdsAuthorProps;
+  text: string;
+  author: IAdsAuthor;
+  created_at: Date;
+}
+
+interface IAdvertisementResponse {
+  id: number;
+  author: IAdsAuthor;
   title: string;
   description: string;
   model: string;
   brand: string;
   year: number;
+  kilometer: number;
   fuel: number;
   fuel_type: string;
   is_active: boolean;
   price: number;
   created_at: Date;
   updated_at: Date;
+  comments: IComments[];
+  cover_image: string;
+  galery: object[];
 }
 interface IErro {
   response: {
@@ -35,7 +47,7 @@ interface IErro {
 }
 interface IResponseAdsApi {
   data: {
-    data: IAdsResponseProps[];
+    data: IAdvertisementResponse[];
     page: number;
     pageCount: number;
     total: number;
@@ -44,14 +56,14 @@ interface IResponseAdsApi {
 interface IAdsContext {
   loadingAds: boolean;
   reloadingAds(): void;
-  ads: IAdsResponseProps[];
+  ads: IAdvertisementResponse[];
 }
 
 export const AdsContext = createContext<IAdsContext>({} as IAdsContext);
 
 export function AdsProvider({ children }: IAdsProviderProps) {
   const [loadingAds, setLoadingAds] = useState<boolean>(true);
-  const [ads, setAds] = useState<IAdsResponseProps[]>([]);
+  const [ads, setAds] = useState<IAdvertisementResponse[]>([]);
 
   const toast = useToast();
 
@@ -60,7 +72,6 @@ export function AdsProvider({ children }: IAdsProviderProps) {
       if (loadingAds) {
         try {
           const { data }: IResponseAdsApi = await Api.get(`/ads`);
-          console.log(data);
           setAds(data.data);
         } catch (err) {
           toast({
@@ -74,9 +85,12 @@ export function AdsProvider({ children }: IAdsProviderProps) {
         }
       }
     }
-
-    getAds();
-    setLoadingAds(false);
+    try {
+      getAds();
+    } catch {
+    } finally {
+      setLoadingAds(false);
+    }
   }, [loadingAds]);
 
   function reloadingAds(): void {

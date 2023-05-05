@@ -3,7 +3,6 @@ import AnnouncerProfile from "../pages/AnnouncerProfile";
 import Home from "../pages/Home";
 import LoginForm from "../components/LoginForm";
 import RegisterForm from "../components/RegisterForm";
-// import { Example } from "../components/test";
 import Product from "../pages/Product";
 import SendEmailResetPasswordForm from "../components/ResetPasswordEmailForm";
 import ResetPasswordForm from "../components/ResetPasswordForm";
