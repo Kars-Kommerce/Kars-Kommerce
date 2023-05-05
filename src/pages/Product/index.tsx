@@ -5,10 +5,12 @@ import DetailedAd from "../../components/DetailedAd";
 import Galery from "../../components/Galery";
 import AnnouncerCard from "../../components/AnnouncerCard";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Api from "../../utils/Api";
 import Loading from "../../components/Loading";
-import CommentBox from "../../components/CommentsBox";
+import CreateComment from "../../components/CreateComment";
+import { UserContext } from "../../context/user.context";
+
 
 interface IAdsAuthorProps {
   id: string;
@@ -53,6 +55,7 @@ interface IResponse {
 }
 
 const Product = () => {
+  const user = useContext(UserContext)
   const { id } = useParams();
   const [actualAds, setActualAds] = useState<IAdsResponseProps | null>(null);
 
@@ -118,9 +121,14 @@ const Product = () => {
             authorID={actualAds.author.id}
           />
         </Flex>
+       
       </Flex>
-      <CommentBox list={actualAds.comments} />
+
+      { 
+        user.user&&
+        <CreateComment adId={actualAds.id} ></CreateComment>}
     </Flex>
+
   ) : (
     <Loading />
   );
