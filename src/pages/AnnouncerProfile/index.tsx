@@ -5,6 +5,8 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/user.context";
 import { useNavigate } from "react-router-dom";
 import { Loading } from "@nextui-org/react";
+import CommentCard from "../../components/CommentCard";
+import CommentBox from "../../components/CommentsBox";
 
 const AnnouncerProfile = () => {
   const { user } = useContext(UserContext);
@@ -52,3 +54,4 @@ const AnnouncerProfile = () => {
 };
 
 export default AnnouncerProfile;
+
