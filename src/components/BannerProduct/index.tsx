@@ -16,7 +16,7 @@ const BannerProduct = ({ image }: any) => {
           maxW={"750px"}
         >
           <Image
-            src="src/assets//background_car.png"
+            src={image}
             alt="Carro"
             w="441px"
             h="253px"

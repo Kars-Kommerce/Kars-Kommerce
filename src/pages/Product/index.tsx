@@ -1,13 +1,74 @@
-import { Box, Container, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import BannerProduct from "../../components/BannerProduct";
 import DescriptionCard from "../../components/DescriptionCard";
 import DetailedAd from "../../components/DetailedAd";
 import Galery from "../../components/Galery";
-import UserCard from "../../components/UserCard";
 import AnnouncerCard from "../../components/AnnouncerCard";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Api from "../../utils/Api";
+import Loading from "../../components/Loading";
+
+interface IAdsAuthorProps {
+  id: string;
+  name: string;
+  bio: string;
+  is_advertiser: boolean;
+}
+
+interface galeryImage {
+  image: string;
+}
+
+interface IComments {
+  id: number;
+  text: string;
+  author: IAdsAuthorProps;
+  created_at: Date;
+}
+
+interface IAdsResponseProps {
+  id: number;
+  author: IAdsAuthorProps;
+  title: string;
+  description: string;
+  model: string;
+  brand: string;
+  year: number;
+  kilometer: number;
+  fuel: number;
+  fuel_type: string;
+  is_active: boolean;
+  price: number;
+  created_at: Date;
+  updated_at: Date;
+  comments: IComments[];
+  cover_image: string;
+  galery: galeryImage[];
+}
+
+interface IResponse {
+  data: IAdsResponseProps;
+}
 
 const Product = () => {
-  return (
+  const { id } = useParams();
+  const [actualAds, setActualAds] = useState<IAdsResponseProps | null>(null);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const getActualAds = async () => {
+      try {
+        const { data }: IResponse = await Api.get(`/ads/${id}`);
+        setActualAds(data);
+      } catch {
+        navigate("/");
+      }
+    };
+    getActualAds();
+  }, []);
+  return actualAds ? (
     <>
       <Flex
         direction={{ base: "column", md: "row" }}
@@ -26,13 +87,16 @@ const Product = () => {
           width={"100%"}
           alignItems={"center"}
         >
-          <BannerProduct />
+          <BannerProduct image={`${actualAds.cover_image}`} />
           <DetailedAd
-            title={"Maserati - Ghibli"}
-            price={2000}
-            tags={[{ tag: "0 KM" }, { tag: 2000 }]}
+            title={actualAds.title}
+            price={actualAds.price}
+            tags={[
+              { tag: `${actualAds.kilometer} KM` },
+              { tag: `${actualAds.year}` },
+            ]}
           />
-          <DescriptionCard />
+          <DescriptionCard description={actualAds.description} />
         </Flex>
         <Flex
           gap={"1rem"}
@@ -40,16 +104,17 @@ const Product = () => {
           width={"100%"}
           alignItems={"center"}
         >
-          <Galery />
+          <Galery galery={actualAds.galery} />
           <AnnouncerCard
-            authorName={"Igor Torres"}
-            bio={
-              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem..."
-            }
+            authorName={actualAds.author.name}
+            bio={actualAds.author.bio}
+            authorID={actualAds.author.id}
           />
         </Flex>
       </Flex>
     </>
+  ) : (
+    <Loading />
   );
 };
 

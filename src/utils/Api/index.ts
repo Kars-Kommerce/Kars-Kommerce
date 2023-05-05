@@ -1,6 +1,7 @@
 import axios from "axios";
+
 const Api = axios.create({
-  baseURL: ``,
+  baseURL: `https://karkenzie.onrender.com`,
 });
 
 export default Api;

@@ -2,48 +2,46 @@ import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 import UserCard from "../UserCard";
 import Tag from "../Tag";
+import { useContext } from "react";
+import { UserContext } from "../../context/user.context";
+import { useNavigate } from "react-router-dom";
 
-interface IAdsAuthorProps {
+interface IProdctCardProps {
+  product: IAdvertisementResponse;
+}
+interface IAdsAuthor {
   id: string;
   name: string;
+  bio: string;
+  is_advertiser: boolean;
 }
 
-interface IAdvertisementResponseProps {
+interface IComments {
   id: number;
+  text: string;
+  author: IAdsAuthor;
+  created_at: Date;
+}
+
+interface IAdvertisementResponse {
+  id: number;
+  author: IAdsAuthor;
   title: string;
   description: string;
   model: string;
   brand: string;
   year: number;
+  kilometer: number;
   fuel: number;
   fuel_type: string;
   is_active: boolean;
   price: number;
-  author: IAdsAuthorProps;
   created_at: Date;
   updated_at: Date;
+  comments: IComments[];
+  cover_image: string;
+  galery: object[];
 }
-
-const mockedProduct: IAdvertisementResponseProps = {
-  id: 1,
-  title: "Maserati - Ghibli",
-  description:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...",
-  model:
-    "Discover Ghibli, the elegant but sporty Maserati sedan: all about interior & exterior design, engine and performances, together with the latest innovations.",
-  brand: "Maserati",
-  year: 2013,
-  fuel: 1,
-  fuel_type: "Flex",
-  is_active: true,
-  price: 670000,
-  author: {
-    id: uuidv4(),
-    name: "Igor Torres",
-  },
-  created_at: new Date(),
-  updated_at: new Date(),
-};
 
 const ProductCardContainer = styled.div`
   max-width: 312px;
@@ -52,13 +50,13 @@ const ProductCardContainer = styled.div`
   > div {
     :nth-child(1) {
       background-color: #e9ecef;
-      padding: 0 25px;
+      padding: 0;
       max-height: 152px;
 
       > img {
         width: 100%;
         height: 152px;
-        object-fit: contain;
+        object-fit: cover;
       }
     }
 
@@ -71,6 +69,7 @@ const ProductCardContainer = styled.div`
       > h3 {
         font-size: 16px;
         font-weight: bold;
+        cursor: pointer;
       }
 
       > p {
@@ -98,20 +97,34 @@ const ProductCardContainer = styled.div`
   }
 `;
 
-const ProductCard = () => {
+const ProductCard = ({ product }: IProdctCardProps) => {
+  const { user } = useContext(UserContext);
+
+  const navigate = useNavigate();
+
   return (
     <ProductCardContainer>
       <div>
-        <img src={"/car.png"} alt="car" />
+        <img src={`${product.cover_image}`} alt="Car" />
       </div>
       <div>
-        <h3>{mockedProduct.title}</h3>
-        <p>{mockedProduct.description}</p>
-        <UserCard authorName={mockedProduct.author.name} />
+        <h3 onClick={() => navigate(`/ads/${product.id}`)}>{product.title}</h3>
+        <p>{product.description}</p>
+        <UserCard
+          authorID={product.author?.id || user?.id!}
+          authorName={product.author?.name! || user?.name!}
+        />
         <div>
-          <Tag tags={[{ tag: "0 KM" }, { tag: mockedProduct.year }]} />
+          <Tag
+            tags={[{ tag: `${product.kilometer} KM` }, { tag: product.year }]}
+          />
           <span>
-            <strong>R$ {mockedProduct.price.toFixed(2)}</strong>
+            <strong>
+              {product.price.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              })}
+            </strong>
           </span>
         </div>
       </div>
