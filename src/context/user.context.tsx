@@ -9,6 +9,20 @@ interface IUserProviderProps {
   children: ReactNode;
 }
 
+interface IAdsAuthor {
+  id: string;
+  name: string;
+  bio: string;
+  is_advertiser: boolean;
+}
+
+interface IComments {
+  id: number;
+  text: string;
+  author: IAdsAuthor;
+  created_at: Date;
+}
+
 interface IUser {
   id: string;
   name: string;
@@ -26,18 +40,22 @@ interface IUser {
 
 interface IAdvertisementResponseProps {
   id: number;
-  author: IAdsAuthorProps;
+  author: IAdsAuthor;
   title: string;
   description: string;
   model: string;
   brand: string;
   year: number;
+  kilometer: number;
   fuel: number;
   fuel_type: string;
   is_active: boolean;
   price: number;
   created_at: Date;
   updated_at: Date;
+  comments: IComments[];
+  cover_image: string;
+  galery: object[];
 }
 
 interface IErro {
@@ -66,12 +84,20 @@ export interface IFormRegister {
   name: string;
   username: string;
   email: string;
-  password: string;
   cpf: string;
   cellphone: string;
   birth_date: string;
   bio?: string;
-  is_advertiser?: string;
+  address: {
+    cep: string;
+    state: string;
+    city: string;
+    street: string;
+    number: string;
+    complement: string;
+  };
+  is_advertiser: boolean;
+  password: string;
 }
 
 interface IUserContext {
@@ -96,27 +122,31 @@ export function UserProvider({ children }: IUserProviderProps) {
   useEffect(() => {
     async function getUser() {
       const token = localStorage.getItem("@TOKEN");
-      if (token && loadingUser) {
-        try {
-          Api.defaults.headers.Authorization = `Bearer ${token}`;
-          const { data }: IResponseUserApi = await Api.get(`/users/profile`);
-          setUser(data);
-        } catch {
-          toast({
-            title: "Atenção",
-            description: "Sessao expirada, conecte novamente",
-            status: "info",
-            duration: 1500,
-            isClosable: true,
-            position: "top-right",
-          });
-          window.localStorage.removeItem("@TOKEN");
+      try {
+        if (token && loadingUser) {
+          try {
+            Api.defaults.headers.Authorization = `Bearer ${token}`;
+            const { data }: IResponseUserApi = await Api.get(`/users/profile`);
+            setUser(data);
+          } catch {
+            toast({
+              title: "Atenção",
+              description: "Sessao expirada, conecte novamente",
+              status: "info",
+              duration: 1500,
+              isClosable: true,
+              position: "top-right",
+            });
+            window.localStorage.removeItem("@TOKEN");
+          }
         }
+      } catch {
+      } finally {
+        setLoadingUser(false);
       }
     }
 
     getUser();
-    setLoadingUser(false);
   }, [loadingUser]);
 
   function logout(): void {

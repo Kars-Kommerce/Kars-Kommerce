@@ -15,6 +15,18 @@ interface IAdsAuthorProps {
   bio: string;
   is_advertiser: boolean;
 }
+
+interface galeryImage {
+  image: string;
+}
+
+interface IComments {
+  id: number;
+  text: string;
+  author: IAdsAuthorProps;
+  created_at: Date;
+}
+
 interface IAdsResponseProps {
   id: number;
   author: IAdsAuthorProps;
@@ -23,12 +35,16 @@ interface IAdsResponseProps {
   model: string;
   brand: string;
   year: number;
+  kilometer: number;
   fuel: number;
   fuel_type: string;
   is_active: boolean;
   price: number;
   created_at: Date;
   updated_at: Date;
+  comments: IComments[];
+  cover_image: string;
+  galery: galeryImage[];
 }
 
 interface IResponse {
@@ -71,11 +87,14 @@ const Product = () => {
           width={"100%"}
           alignItems={"center"}
         >
-          <BannerProduct image={"../src/assets/background_car.png"} />
+          <BannerProduct image={`${actualAds.cover_image}`} />
           <DetailedAd
             title={actualAds.title}
             price={actualAds.price}
-            tags={[{ tag: "0 KM" }, { tag: 2000 }]}
+            tags={[
+              { tag: `${actualAds.kilometer} KM` },
+              { tag: `${actualAds.year}` },
+            ]}
           />
           <DescriptionCard description={actualAds.description} />
         </Flex>
@@ -85,10 +104,11 @@ const Product = () => {
           width={"100%"}
           alignItems={"center"}
         >
-          <Galery />
+          <Galery galery={actualAds.galery} />
           <AnnouncerCard
             authorName={actualAds.author.name}
             bio={actualAds.author.bio}
+            authorID={actualAds.author.id}
           />
         </Flex>
       </Flex>

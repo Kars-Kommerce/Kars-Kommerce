@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Container,
+  GridItem,
   Heading,
   Input,
   VStack,
@@ -9,10 +10,10 @@ import {
 
 export default function Filter() {
   const brands = [
-    { id: 0, name: "Chevrolet" },
-    { id: 1, name: "Citroën" },
-    { id: 2, name: "Fiat" },
-    { id: 3, name: "Ford" },
+    { id: 0, name: "Citroën" },
+    { id: 1, name: "Fiat" },
+    { id: 2, name: "Ford" },
+    { id: 3, name: "Chevrolet" },
     { id: 4, name: "Honda" },
     { id: 5, name: "Hyundai" },
     { id: 6, name: "Nissan" },
@@ -70,16 +71,19 @@ export default function Filter() {
   }
 
   const carType: CarType[] = [
-    { id: 1, name: "Diesel" },
-    { id: 2, name: "Etanol" },
-    { id: 3, name: "Elétrico" },
+    { id: 1, name: "Flex" },
+    { id: 2, name: "Elétrico" },
+    { id: 3, name: "Híbrido" },
     { id: 4, name: "Gasolina" },
-    { id: 5, name: "Flex" },
-    { id: 6, name: "Híbrido" },
   ];
-
   return (
-    <Box p={2} margin={"20px"} display={{ base: "none", md: "initial" }}>
+    <GridItem
+      rowSpan={4}
+      colSpan={1}
+      p={2}
+      margin={"20px"}
+      display={{ base: "none", md: "initial" }}
+    >
       <VStack spacing={8} align="stretch">
         <Container display={"flex"} flexDirection={"column"}>
           <Heading size="md" mb={4} fontSize={"28px"} fontWeight={"600"}>
@@ -269,6 +273,6 @@ export default function Filter() {
           </Box>
         </Container>
       </VStack>
-    </Box>
+    </GridItem>
   );
 }

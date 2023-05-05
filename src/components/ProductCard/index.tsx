@@ -4,6 +4,7 @@ import UserCard from "../UserCard";
 import Tag from "../Tag";
 import { useContext } from "react";
 import { UserContext } from "../../context/user.context";
+import { useNavigate } from "react-router-dom";
 
 interface IProdctCardProps {
   product: IAdvertisementResponse;
@@ -15,6 +16,13 @@ interface IAdsAuthor {
   is_advertiser: boolean;
 }
 
+interface IComments {
+  id: number;
+  text: string;
+  author: IAdsAuthor;
+  created_at: Date;
+}
+
 interface IAdvertisementResponse {
   id: number;
   author: IAdsAuthor;
@@ -23,12 +31,16 @@ interface IAdvertisementResponse {
   model: string;
   brand: string;
   year: number;
+  kilometer: number;
   fuel: number;
   fuel_type: string;
   is_active: boolean;
   price: number;
   created_at: Date;
   updated_at: Date;
+  comments: IComments[];
+  cover_image: string;
+  galery: object[];
 }
 
 const ProductCardContainer = styled.div`
@@ -38,13 +50,13 @@ const ProductCardContainer = styled.div`
   > div {
     :nth-child(1) {
       background-color: #e9ecef;
-      padding: 0 25px;
+      padding: 0;
       max-height: 152px;
 
       > img {
         width: 100%;
         height: 152px;
-        object-fit: contain;
+        object-fit: cover;
       }
     }
 
@@ -57,6 +69,7 @@ const ProductCardContainer = styled.div`
       > h3 {
         font-size: 16px;
         font-weight: bold;
+        cursor: pointer;
       }
 
       > p {
@@ -87,17 +100,24 @@ const ProductCardContainer = styled.div`
 const ProductCard = ({ product }: IProdctCardProps) => {
   const { user } = useContext(UserContext);
 
+  const navigate = useNavigate();
+
   return (
     <ProductCardContainer>
       <div>
-        <img src={"/car.png"} alt="car" />
+        <img src={`${product.cover_image}`} alt="Car" />
       </div>
       <div>
-        <h3>{product.title}</h3>
+        <h3 onClick={() => navigate(`/ads/${product.id}`)}>{product.title}</h3>
         <p>{product.description}</p>
-        <UserCard authorName={product.author?.name! || user?.name!} />
+        <UserCard
+          authorID={product.author?.id || user?.id!}
+          authorName={product.author?.name! || user?.name!}
+        />
         <div>
-          <Tag tags={[{ tag: "0 KM" }, { tag: product.year }]} />
+          <Tag
+            tags={[{ tag: `${product.kilometer} KM` }, { tag: product.year }]}
+          />
           <span>
             <strong>
               {product.price.toLocaleString("pt-BR", {
