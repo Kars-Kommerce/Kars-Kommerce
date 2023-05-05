@@ -14,8 +14,6 @@ const Galery = ({ galery }: IProps) => {
       <Box
         p={4}
         w={"90%"}
-        maxW="md"
-        // h="377px"
         borderRadius="4px"
         display="flex"
         flexDirection="column"

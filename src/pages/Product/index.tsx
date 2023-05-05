@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Api from "../../utils/Api";
 import Loading from "../../components/Loading";
+import CommentBox from "../../components/CommentsBox";
 
 interface IAdsAuthorProps {
   id: string;
@@ -62,6 +63,7 @@ const Product = () => {
       try {
         const { data }: IResponse = await Api.get(`/ads/${id}`);
         setActualAds(data);
+        console.log(data);
       } catch {
         navigate("/");
       }
@@ -69,14 +71,19 @@ const Product = () => {
     getActualAds();
   }, []);
   return actualAds ? (
-    <>
+    <Flex
+      direction={"column"}
+      p={"1rem"}
+      bg={
+        "linear-gradient(180deg, #4529E6 31.25%, #F1F3F5 31.26%, #F1F3F5 100%)"
+      }
+      h={"100%"}
+      w={"100%"}
+      gap={"1rem"}
+    >
       <Flex
         direction={{ base: "column", md: "row" }}
         align={"flex-start"}
-        py={"1rem"}
-        bg={
-          "linear-gradient(180deg, #4529E6 31.25%, #F1F3F5 31.26%, #F1F3F5 100%)"
-        }
         h={"100%"}
         w={"100%"}
         gap={"1rem"}
@@ -112,7 +119,8 @@ const Product = () => {
           />
         </Flex>
       </Flex>
-    </>
+      <CommentBox list={actualAds.comments} />
+    </Flex>
   ) : (
     <Loading />
   );
