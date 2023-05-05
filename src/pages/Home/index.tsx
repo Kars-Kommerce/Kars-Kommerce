@@ -8,14 +8,15 @@ import ProductCard from "../../components/ProductCard";
 
 const Home = () => {
   const { ads } = useContext(AdsContext);
+
   return (
     <>
       <Banner />
 
       <Grid
         h="100%"
-        templateRows="repeat(4, 1fr)"
-        templateColumns="repeat(4, 1fr)"
+        templateRows={{ base: "repeat(1, 1fr)", md: "repeat(4, 1fr)" }}
+        templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(4, 1fr)" }}
         gap={4}
       >
         <Filter />

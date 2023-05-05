@@ -11,6 +11,7 @@ import Loading from "../../components/Loading";
 import CreateComment from "../../components/CreateComment";
 import { UserContext } from "../../context/user.context";
 
+
 interface IAdsAuthorProps {
   id: string;
   name: string;
@@ -65,6 +66,7 @@ const Product = () => {
       try {
         const { data }: IResponse = await Api.get(`/ads/${id}`);
         setActualAds(data);
+        console.log(data);
       } catch {
         navigate("/");
       }
@@ -72,14 +74,19 @@ const Product = () => {
     getActualAds();
   }, []);
   return actualAds ? (
-    <>
+    <Flex
+      direction={"column"}
+      p={"1rem"}
+      bg={
+        "linear-gradient(180deg, #4529E6 31.25%, #F1F3F5 31.26%, #F1F3F5 100%)"
+      }
+      h={"100%"}
+      w={"100%"}
+      gap={"1rem"}
+    >
       <Flex
         direction={{ base: "column", md: "row" }}
         align={"flex-start"}
-        py={"1rem"}
-        bg={
-          "linear-gradient(180deg, #4529E6 31.25%, #F1F3F5 31.26%, #F1F3F5 100%)"
-        }
         h={"100%"}
         w={"100%"}
         gap={"1rem"}
@@ -120,7 +127,8 @@ const Product = () => {
       { 
         user.user&&
         <CreateComment adId={actualAds.id} ></CreateComment>}
-    </>
+    </Flex>
+
   ) : (
     <Loading />
   );

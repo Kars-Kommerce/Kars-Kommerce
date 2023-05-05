@@ -16,7 +16,6 @@ const AnnouncerCard = ({ authorName, bio, authorID }: any) => {
     <>
       <Card
         w={"90%"}
-        maxW="md"
         css={{ boxShadow: "none" }}
         borderRadius={"4px"}
         bg={"grey.white"}

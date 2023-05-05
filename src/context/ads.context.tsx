@@ -68,29 +68,29 @@ export function AdsProvider({ children }: IAdsProviderProps) {
   const toast = useToast();
 
   useEffect(() => {
-    async function getAds() {
-      if (loadingAds) {
-        try {
-          const { data }: IResponseAdsApi = await Api.get(`/ads`);
-          setAds(data.data);
-        } catch (err) {
-          toast({
-            title: "Error",
-            description: (err as IErro).response.data.message,
-            status: "error",
-            duration: 1500,
-            isClosable: true,
-            position: "top-right",
-          });
+    const getAds = async () => {
+      try {
+        if (loadingAds) {
+          try {
+            const { data }: IResponseAdsApi = await Api.get(`/ads`);
+            setAds(data.data);
+          } catch (err) {
+            toast({
+              title: "Error",
+              description: (err as IErro).response.data.message,
+              status: "error",
+              duration: 1500,
+              isClosable: true,
+              position: "top-right",
+            });
+          }
         }
+      } finally {
+        setLoadingAds(false);
       }
-    }
-    try {
-      getAds();
-    } catch {
-    } finally {
-      setLoadingAds(false);
-    }
+    };
+
+    getAds();
   }, [loadingAds]);
 
   function reloadingAds(): void {
