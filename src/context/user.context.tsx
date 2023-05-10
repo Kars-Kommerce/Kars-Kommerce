@@ -109,6 +109,15 @@ export interface IFormRegister {
   password: string;
 }
 
+export interface IFormEdit {
+  name?: string;
+  email?: string;
+  cpf?: string;
+  cellphone?: string;
+  birth_date?: string;
+  bio?: string;
+}
+
 interface IUserContext {
   user: IUser | null;
   loadingUser: boolean;
@@ -117,7 +126,8 @@ interface IUserContext {
   apiRegister(dataForm: IFormRegister): Promise<void>;
   apiResetPassword(token: any, dataForm: IFormResetPassword): Promise<void>;
   apiSendEmail(dataForm: IFormSendEmail): Promise<void>;
-  loadingTechs(): void;
+  apiEditProfile(dataForm: IFormEdit, user: IUser): Promise<void>;
+  reloadUser(): void;
 }
 
 export const UserContext = createContext<IUserContext>({} as IUserContext);
@@ -166,7 +176,7 @@ export function UserProvider({ children }: IUserProviderProps) {
     window.localStorage.removeItem("@TOKEN");
   }
 
-  function loadingTechs(): void {
+  function reloadUser(): void {
     setLoadingUser(true);
   }
 
@@ -271,6 +281,51 @@ export function UserProvider({ children }: IUserProviderProps) {
     }
   }
 
+  async function apiEditProfile(
+    dataForm: IFormEdit,
+    user: IUser
+  ): Promise<void> {
+    console.log(user, dataForm);
+    if (dataForm.name === "") {
+      delete dataForm.name;
+    }
+    if (dataForm.email === "") {
+      delete dataForm.email;
+    }
+    if (dataForm.cellphone === "") {
+      delete dataForm.cellphone;
+    }
+    if (dataForm.cpf === "") {
+      delete dataForm.cpf;
+    }
+    if (dataForm.birth_date === "") {
+      delete dataForm.birth_date;
+    }
+    if (dataForm.bio === "") {
+      delete dataForm.bio;
+    }
+    try {
+      await Api.patch(`/users/profile`, dataForm);
+      toast({
+        title: "Usuário editado",
+        description: "Você recebera o email em instantes!",
+        status: "success",
+        duration: 1500,
+        isClosable: true,
+        position: "top-right",
+      });
+    } catch (err) {
+      toast({
+        title: "Ops!",
+        description: (err as IErro).response.data.message,
+        status: "error",
+        duration: 1500,
+        isClosable: true,
+        position: "top-right",
+      });
+    }
+  }
+
   if (loadingUser) {
     return <Loading />;
   }
@@ -285,7 +340,8 @@ export function UserProvider({ children }: IUserProviderProps) {
         apiRegister,
         apiResetPassword,
         apiSendEmail,
-        loadingTechs,
+        apiEditProfile,
+        reloadUser,
       }}
     >
       {children}
