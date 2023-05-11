@@ -5,6 +5,7 @@ import Tag from "../Tag";
 import { useContext } from "react";
 import { UserContext } from "../../context/user.context";
 import { useNavigate } from "react-router-dom";
+import { Avatar, Heading, Stack } from "@chakra-ui/react";
 
 interface IProdctCardProps {
   product: IAdvertisementResponse;
@@ -101,6 +102,7 @@ const ProductCard = ({ product }: IProdctCardProps) => {
   const { user } = useContext(UserContext);
 
   const navigate = useNavigate();
+  console.log(product);
 
   return (
     <ProductCardContainer>
@@ -110,10 +112,35 @@ const ProductCard = ({ product }: IProdctCardProps) => {
       <div>
         <h3 onClick={() => navigate(`/ads/${product.id}`)}>{product.title}</h3>
         <p>{product.description}</p>
-        <UserCard
-          authorID={product.author?.id || user?.id!}
-          authorName={product.author?.name! || user?.name!}
-        />
+        <Stack
+          flex={{ base: 1, md: 0 }}
+          display={{ base: "none", md: "flex" }}
+          justify={"flex-start"}
+          direction={"row"}
+          spacing={2}
+          paddingLeft={"20px"}
+          alignItems={"center"}
+          minW={"25%"}
+          minH={"100%"}
+        >
+          <Avatar
+            color={"white !important"}
+            bg={"brand.1"}
+            size={"sm"}
+            name={product.author.name}
+            onClick={() => navigate(`/user/${product.author.id}`)}
+            cursor={"pointer"}
+          />
+          <Heading
+            fontFamily={"body"}
+            fontSize={"h7"}
+            color={"grey.1"}
+            onClick={() => navigate(`/user/${product.author.id}`)}
+            cursor={"pointer"}
+          >
+            {product.author.name}
+          </Heading>
+        </Stack>
         <div>
           <Tag
             tags={[{ tag: `${product.kilometer} KM` }, { tag: product.year }]}

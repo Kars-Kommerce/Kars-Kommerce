@@ -38,6 +38,7 @@ interface IAdvertisementResponse {
 }
 
 const ListProductsCard = ({ array }: IListProps) => {
+  console.log(array);
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   return (
     <Box overflow={"hidden"}>
