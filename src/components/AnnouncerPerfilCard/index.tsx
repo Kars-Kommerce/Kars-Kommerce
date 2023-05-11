@@ -10,6 +10,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import Tag from "../Tag";
+import ModalCreateAd from "../Modal/CreateAd/ModalCreateAd";
 const AnnouncerPerfilCard = ({ authorName, bio }: any) => {
   return (
     <>
@@ -52,7 +53,7 @@ const AnnouncerPerfilCard = ({ authorName, bio }: any) => {
         </CardBody>
 
         <CardFooter display={"flex"} justifyContent={"flex-start"}>
-          <Button variant="outlineBrand1">Criar anuncio</Button>
+          <ModalCreateAd />
         </CardFooter>
       </Card>
     </>

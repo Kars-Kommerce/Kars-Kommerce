@@ -208,7 +208,9 @@ export function UserProvider({ children }: IUserProviderProps) {
 
   async function apiRegister(dataForm: IFormRegister): Promise<void> {
     try {
+      console.log(dataForm);
       await Api.post("/users", dataForm);
+
       toast({
         title: "Sucesso",
         description:
@@ -218,7 +220,9 @@ export function UserProvider({ children }: IUserProviderProps) {
         isClosable: true,
         position: "top-right",
       });
+      navigate("/login");
     } catch (err) {
+      console.log(err);
       toast({
         title: "Ops!",
         description: (err as IErro).response.data.message,
