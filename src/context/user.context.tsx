@@ -118,6 +118,15 @@ export interface IFormEdit {
   bio?: string;
 }
 
+export interface IFormEditAddress {
+  cep?: string;
+  state?: string;
+  city?: string;
+  street?: string;
+  number?: string;
+  complement?: string;
+}
+
 interface IUserContext {
   user: IUser | null;
   loadingUser: boolean;
@@ -127,6 +136,7 @@ interface IUserContext {
   apiResetPassword(token: any, dataForm: IFormResetPassword): Promise<void>;
   apiSendEmail(dataForm: IFormSendEmail): Promise<void>;
   apiEditProfile(dataForm: IFormEdit, user: IUser): Promise<void>;
+  apiEditAddress(dataForm: IFormEditAddress, user: IUser): Promise<void>;
   reloadUser(): void;
 }
 
@@ -308,7 +318,52 @@ export function UserProvider({ children }: IUserProviderProps) {
       await Api.patch(`/users/profile`, dataForm);
       toast({
         title: "Usuário editado",
-        description: "Você recebera o email em instantes!",
+        description: "Você editou o perfil com sucesso!",
+        status: "success",
+        duration: 1500,
+        isClosable: true,
+        position: "top-right",
+      });
+    } catch (err) {
+      toast({
+        title: "Ops!",
+        description: (err as IErro).response.data.message,
+        status: "error",
+        duration: 1500,
+        isClosable: true,
+        position: "top-right",
+      });
+    }
+  }
+
+  async function apiEditAddress(
+    dataForm: IFormEditAddress,
+    user: IUser
+  ): Promise<void> {
+    console.log(user, dataForm);
+    if (dataForm.cep === "") {
+      delete dataForm.cep;
+    }
+    if (dataForm.state === "") {
+      delete dataForm.state;
+    }
+    if (dataForm.city === "") {
+      delete dataForm.city;
+    }
+    if (dataForm.street === "") {
+      delete dataForm.street;
+    }
+    if (dataForm.number === "") {
+      delete dataForm.number;
+    }
+    if (dataForm.complement === "") {
+      delete dataForm.complement;
+    }
+    try {
+      await Api.patch(`/address/${user.id}`, dataForm);
+      toast({
+        title: "Endereço editado",
+        description: "Você editou o endereço com sucesso",
         status: "success",
         duration: 1500,
         isClosable: true,
@@ -341,6 +396,7 @@ export function UserProvider({ children }: IUserProviderProps) {
         apiResetPassword,
         apiSendEmail,
         apiEditProfile,
+        apiEditAddress,
         reloadUser,
       }}
     >
