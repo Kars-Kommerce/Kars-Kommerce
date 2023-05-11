@@ -23,6 +23,16 @@ interface IComments {
   created_at: Date;
 }
 
+export interface IAddress {
+  id: number;
+  cep: string;
+  state: string;
+  city: string;
+  street: string;
+  number: string;
+  complement: string | null | undefined;
+}
+
 interface IUser {
   id: string;
   name: string;
@@ -36,6 +46,7 @@ interface IUser {
   created_at: Date;
   updated_at: Date;
   ads: IAdvertisementResponseProps[];
+  address: IAddress;
 }
 
 interface IAdvertisementResponseProps {
@@ -299,7 +310,6 @@ export function UserProvider({ children }: IUserProviderProps) {
     dataForm: IFormEdit,
     user: IUser
   ): Promise<void> {
-    console.log(user, dataForm);
     if (dataForm.name === "") {
       delete dataForm.name;
     }
@@ -344,7 +354,7 @@ export function UserProvider({ children }: IUserProviderProps) {
     dataForm: IFormEditAddress,
     user: IUser
   ): Promise<void> {
-    console.log(user, dataForm);
+    console.log(user.address.id, dataForm);
     if (dataForm.cep === "") {
       delete dataForm.cep;
     }
@@ -364,7 +374,7 @@ export function UserProvider({ children }: IUserProviderProps) {
       delete dataForm.complement;
     }
     try {
-      await Api.patch(`/address/${user.id}`, dataForm);
+      await Api.patch(`/address/${user.address.id}`, dataForm);
       toast({
         title: "Endereço editado",
         description: "Você editou o endereço com sucesso",
