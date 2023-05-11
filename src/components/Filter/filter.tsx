@@ -8,20 +8,20 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
+export const brands = [
+  { id: 0, name: "Citroen" },
+  { id: 1, name: "Fiat" },
+  { id: 2, name: "Ford" },
+  { id: 3, name: "Chevrolet" },
+  { id: 4, name: "Honda" },
+  { id: 5, name: "Hyundai" },
+  { id: 6, name: "Nissan" },
+  { id: 7, name: "Peugeot" },
+  { id: 8, name: "Renault" },
+  { id: 9, name: "Toyota" },
+  { id: 10, name: "Volkswagen" },
+];
 export default function Filter() {
-  const brands = [
-    { id: 0, name: "Citroën" },
-    { id: 1, name: "Fiat" },
-    { id: 2, name: "Ford" },
-    { id: 3, name: "Chevrolet" },
-    { id: 4, name: "Honda" },
-    { id: 5, name: "Hyundai" },
-    { id: 6, name: "Nissan" },
-    { id: 7, name: "Peugeot" },
-    { id: 8, name: "Renault" },
-    { id: 9, name: "Toyota" },
-    { id: 10, name: "Volkswagen" },
-  ];
 
   const years = [
     { id: 0, name: 2023 },
