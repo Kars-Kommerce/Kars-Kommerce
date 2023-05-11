@@ -8,12 +8,14 @@ import {
   Avatar,
   Link,
 } from "@chakra-ui/react";
-const AnnouncerCard = ({ authorName, bio, link }: any) => {
+import { useNavigate } from "react-router-dom";
+const AnnouncerCard = ({ authorName, bio, authorID }: any) => {
+  const navigate = useNavigate();
+
   return (
     <>
       <Card
         w={"90%"}
-        maxW="md"
         css={{ boxShadow: "none" }}
         borderRadius={"4px"}
         bg={"grey.white"}
@@ -47,7 +49,7 @@ const AnnouncerCard = ({ authorName, bio, link }: any) => {
             _hover={{ bg: "grey.2" }}
             padding={"12px 24px"}
             borderRadius={"4px"}
-            href={link}
+            onClick={() => navigate(`/user/${authorID}`)}
           >
             Ver todos anuncios
           </Link>

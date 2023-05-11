@@ -9,6 +9,30 @@ interface IUserProviderProps {
   children: ReactNode;
 }
 
+interface IAdsAuthor {
+  id: string;
+  name: string;
+  bio: string;
+  is_advertiser: boolean;
+}
+
+interface IComments {
+  id: number;
+  text: string;
+  author: IAdsAuthor;
+  created_at: Date;
+}
+
+export interface IAddress {
+  id: number;
+  cep: string;
+  state: string;
+  city: string;
+  street: string;
+  number: string;
+  complement: string | null | undefined;
+}
+
 interface IUser {
   id: string;
   name: string;
@@ -22,22 +46,27 @@ interface IUser {
   created_at: Date;
   updated_at: Date;
   ads: IAdvertisementResponseProps[];
+  address: IAddress;
 }
 
 interface IAdvertisementResponseProps {
   id: number;
-  author: IAdsAuthorProps;
+  author: IAdsAuthor;
   title: string;
   description: string;
   model: string;
   brand: string;
   year: number;
+  kilometer: number;
   fuel: number;
   fuel_type: string;
   is_active: boolean;
   price: number;
   created_at: Date;
   updated_at: Date;
+  comments: IComments[];
+  cover_image: string;
+  galery: object[];
 }
 
 interface IErro {
@@ -75,12 +104,38 @@ export interface IFormRegister {
   name: string;
   username: string;
   email: string;
-  password: string;
   cpf: string;
   cellphone: string;
   birth_date: string;
   bio?: string;
-  is_advertiser?: string;
+  address: {
+    cep: string;
+    state: string;
+    city: string;
+    street: string;
+    number: string;
+    complement: string;
+  };
+  is_advertiser: boolean;
+  password: string;
+}
+
+export interface IFormEdit {
+  name?: string;
+  email?: string;
+  cpf?: string;
+  cellphone?: string;
+  birth_date?: string;
+  bio?: string;
+}
+
+export interface IFormEditAddress {
+  cep?: string;
+  state?: string;
+  city?: string;
+  street?: string;
+  number?: string;
+  complement?: string;
 }
 
 interface IUserContext {
@@ -91,7 +146,9 @@ interface IUserContext {
   apiRegister(dataForm: IFormRegister): Promise<void>;
   apiResetPassword(token: any, dataForm: IFormResetPassword): Promise<void>;
   apiSendEmail(dataForm: IFormSendEmail): Promise<void>;
-  loadingTechs(): void;
+  apiEditProfile(dataForm: IFormEdit, user: IUser): Promise<void>;
+  apiEditAddress(dataForm: IFormEditAddress, user: IUser): Promise<void>;
+  reloadUser(): void;
 }
 
 export const UserContext = createContext<IUserContext>({} as IUserContext);
@@ -107,27 +164,31 @@ export function UserProvider({ children }: IUserProviderProps) {
   useEffect(() => {
     async function getUser() {
       const token = localStorage.getItem("@TOKEN");
-      if (token && loadingUser) {
-        try {
-          Api.defaults.headers.Authorization = `Bearer ${token}`;
-          const { data }: IResponseUserApi = await Api.get(`/users/profile`);
-          setUser(data);
-        } catch {
-          toast({
-            title: "Atenção",
-            description: "Sessao expirada, conecte novamente",
-            status: "info",
-            duration: 1500,
-            isClosable: true,
-            position: "top-right",
-          });
-          window.localStorage.removeItem("@TOKEN");
+      try {
+        if (token && loadingUser) {
+          try {
+            Api.defaults.headers.Authorization = `Bearer ${token}`;
+            const { data }: IResponseUserApi = await Api.get(`/users/profile`);
+            setUser(data);
+          } catch {
+            toast({
+              title: "Atenção",
+              description: "Sessao expirada, conecte novamente",
+              status: "info",
+              duration: 1500,
+              isClosable: true,
+              position: "top-right",
+            });
+            window.localStorage.removeItem("@TOKEN");
+          }
         }
+      } catch {
+      } finally {
+        setLoadingUser(false);
       }
     }
 
     getUser();
-    setLoadingUser(false);
   }, [loadingUser]);
 
   function logout(): void {
@@ -136,7 +197,7 @@ export function UserProvider({ children }: IUserProviderProps) {
     window.localStorage.removeItem("@TOKEN");
   }
 
-  function loadingTechs(): void {
+  function reloadUser(): void {
     setLoadingUser(true);
   }
 
@@ -168,7 +229,9 @@ export function UserProvider({ children }: IUserProviderProps) {
 
   async function apiRegister(dataForm: IFormRegister): Promise<void> {
     try {
+      console.log(dataForm);
       await Api.post("/users", dataForm);
+
       toast({
         title: "Sucesso",
         description:
@@ -178,7 +241,9 @@ export function UserProvider({ children }: IUserProviderProps) {
         isClosable: true,
         position: "top-right",
       });
+      navigate("/login");
     } catch (err) {
+      console.log(err);
       toast({
         title: "Ops!",
         description: (err as IErro).response.data.message,
@@ -241,6 +306,95 @@ export function UserProvider({ children }: IUserProviderProps) {
     }
   }
 
+  async function apiEditProfile(
+    dataForm: IFormEdit,
+    user: IUser
+  ): Promise<void> {
+    if (dataForm.name === "") {
+      delete dataForm.name;
+    }
+    if (dataForm.email === "") {
+      delete dataForm.email;
+    }
+    if (dataForm.cellphone === "") {
+      delete dataForm.cellphone;
+    }
+    if (dataForm.cpf === "") {
+      delete dataForm.cpf;
+    }
+    if (dataForm.birth_date === "") {
+      delete dataForm.birth_date;
+    }
+    if (dataForm.bio === "") {
+      delete dataForm.bio;
+    }
+    try {
+      await Api.patch(`/users/profile`, dataForm);
+      toast({
+        title: "Usuário editado",
+        description: "Você editou o perfil com sucesso!",
+        status: "success",
+        duration: 1500,
+        isClosable: true,
+        position: "top-right",
+      });
+    } catch (err) {
+      toast({
+        title: "Ops!",
+        description: (err as IErro).response.data.message,
+        status: "error",
+        duration: 1500,
+        isClosable: true,
+        position: "top-right",
+      });
+    }
+  }
+
+  async function apiEditAddress(
+    dataForm: IFormEditAddress,
+    user: IUser
+  ): Promise<void> {
+    console.log(user.address.id, dataForm);
+    if (dataForm.cep === "") {
+      delete dataForm.cep;
+    }
+    if (dataForm.state === "") {
+      delete dataForm.state;
+    }
+    if (dataForm.city === "") {
+      delete dataForm.city;
+    }
+    if (dataForm.street === "") {
+      delete dataForm.street;
+    }
+    if (dataForm.number === "") {
+      delete dataForm.number;
+    }
+    if (dataForm.complement === "") {
+      delete dataForm.complement;
+    }
+    try {
+      await Api.patch(`/address/${user.address.id}`, dataForm);
+      toast({
+        title: "Endereço editado",
+        description: "Você editou o endereço com sucesso",
+        status: "success",
+        duration: 1500,
+        isClosable: true,
+        position: "top-right",
+      });
+    } catch (err) {
+      toast({
+        title: "Ops!",
+        description: (err as IErro).response.data.message,
+        status: "error",
+        duration: 1500,
+        isClosable: true,
+        position: "top-right",
+      });
+    }
+  }
+
   if (loadingUser) {
     return <Loading />;
   }
@@ -255,7 +409,9 @@ export function UserProvider({ children }: IUserProviderProps) {
         apiRegister,
         apiResetPassword,
         apiSendEmail,
-        loadingTechs,
+        apiEditProfile,
+        apiEditAddress,
+        reloadUser,
       }}
     >
       {children}

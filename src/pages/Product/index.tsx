@@ -5,9 +5,12 @@ import DetailedAd from "../../components/DetailedAd";
 import Galery from "../../components/Galery";
 import AnnouncerCard from "../../components/AnnouncerCard";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Api from "../../utils/Api";
 import Loading from "../../components/Loading";
+import CreateComment from "../../components/CreateComment";
+import { UserContext } from "../../context/user.context";
+import CommentBox from "../../components/CommentsBox";
 
 interface IAdsAuthorProps {
   id: string;
@@ -15,6 +18,18 @@ interface IAdsAuthorProps {
   bio: string;
   is_advertiser: boolean;
 }
+
+interface galeryImage {
+  image: string;
+}
+
+interface IComments {
+  id: number;
+  text: string;
+  author: IAdsAuthorProps;
+  created_at: Date;
+}
+
 interface IAdsResponseProps {
   id: number;
   author: IAdsAuthorProps;
@@ -23,12 +38,16 @@ interface IAdsResponseProps {
   model: string;
   brand: string;
   year: number;
+  kilometer: number;
   fuel: number;
   fuel_type: string;
   is_active: boolean;
   price: number;
   created_at: Date;
   updated_at: Date;
+  comments: IComments[];
+  cover_image: string;
+  galery: galeryImage[];
 }
 
 interface IResponse {
@@ -36,6 +55,7 @@ interface IResponse {
 }
 
 const Product = () => {
+  const user = useContext(UserContext);
   const { id } = useParams();
   const [actualAds, setActualAds] = useState<IAdsResponseProps | null>(null);
 
@@ -46,6 +66,7 @@ const Product = () => {
       try {
         const { data }: IResponse = await Api.get(`/ads/${id}`);
         setActualAds(data);
+        console.log(data);
       } catch {
         navigate("/");
       }
@@ -53,14 +74,19 @@ const Product = () => {
     getActualAds();
   }, []);
   return actualAds ? (
-    <>
+    <Flex
+      direction={"column"}
+      p={"1rem"}
+      bg={
+        "linear-gradient(180deg, #4529E6 31.25%, #F1F3F5 31.26%, #F1F3F5 100%)"
+      }
+      h={"100%"}
+      w={"100%"}
+      gap={"1rem"}
+    >
       <Flex
         direction={{ base: "column", md: "row" }}
         align={"flex-start"}
-        py={"1rem"}
-        bg={
-          "linear-gradient(180deg, #4529E6 31.25%, #F1F3F5 31.26%, #F1F3F5 100%)"
-        }
         h={"100%"}
         w={"100%"}
         gap={"1rem"}
@@ -71,11 +97,14 @@ const Product = () => {
           width={"100%"}
           alignItems={"center"}
         >
-          <BannerProduct image={"../src/assets/background_car.png"} />
+          <BannerProduct image={`${actualAds.cover_image}`} />
           <DetailedAd
             title={actualAds.title}
             price={actualAds.price}
-            tags={[{ tag: "0 KM" }, { tag: 2000 }]}
+            tags={[
+              { tag: `${actualAds.kilometer} KM` },
+              { tag: `${actualAds.year}` },
+            ]}
           />
           <DescriptionCard description={actualAds.description} />
         </Flex>
@@ -85,14 +114,18 @@ const Product = () => {
           width={"100%"}
           alignItems={"center"}
         >
-          <Galery />
+          <Galery galery={actualAds.galery} />
           <AnnouncerCard
             authorName={actualAds.author.name}
             bio={actualAds.author.bio}
+            authorID={actualAds.author.id}
           />
         </Flex>
       </Flex>
-    </>
+
+      <CommentBox list={actualAds.comments} />
+      {user.user && <CreateComment adId={actualAds.id}></CreateComment>}
+    </Flex>
   ) : (
     <Loading />
   );

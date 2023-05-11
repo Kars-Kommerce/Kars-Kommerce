@@ -1,4 +1,4 @@
-import { Box, Flex, useMediaQuery } from "@chakra-ui/react";
+import { Box, Flex, Heading, useMediaQuery } from "@chakra-ui/react";
 import ProductCard from "../ProductCard";
 
 interface IListProps {
@@ -10,6 +10,13 @@ interface IAdsAuthor {
   bio: string;
   is_advertiser: boolean;
 }
+
+interface IComments {
+  id: number;
+  text: string;
+  author: IAdsAuthor;
+  created_at: Date;
+}
 interface IAdvertisementResponse {
   id: number;
   author: IAdsAuthor;
@@ -18,15 +25,20 @@ interface IAdvertisementResponse {
   model: string;
   brand: string;
   year: number;
+  kilometer: number;
   fuel: number;
   fuel_type: string;
   is_active: boolean;
   price: number;
   created_at: Date;
   updated_at: Date;
+  comments: IComments[];
+  cover_image: string;
+  galery: object[];
 }
 
 const ListProductsCard = ({ array }: IListProps) => {
+  console.log(array);
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   return (
     <Box overflow={"hidden"}>
@@ -35,15 +47,19 @@ const ListProductsCard = ({ array }: IListProps) => {
           flexWrap={isLargerThan768 ? "wrap" : "nowrap"}
           overflowX={"scroll"}
           gap={"2rem"}
-          // justify={isLargerThan768 ? "center" : "flex-start"}
           justify={"flex-start"}
           px={"1rem"}
           alignSelf={"flex-start"}
-          // maxW={"100vw"}
+          width={"100%"}
+          height={"100%"}
         >
-          {array.map((el, i) => (
-            <ProductCard key={`${el.title}-${i}`} product={el} />
-          ))}
+          {array.length > 0 ? (
+            array.map((el, i) => (
+              <ProductCard key={`${el.title}-${i}`} product={el} />
+            ))
+          ) : (
+            <Heading margin={"0 auto"}>Sem nenhum anuncio no momento!</Heading>
+          )}
         </Flex>
       </Flex>
     </Box>

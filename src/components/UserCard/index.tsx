@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const UserCardContainer = styled.div`
@@ -8,21 +9,24 @@ const UserCardContainer = styled.div`
     color: #fff;
     font-size: 14px;
     border-radius: 100%;
-
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   > span {
     font-weight: 600;
+    cursor: pointer;
   }
 `;
 
 interface UserCardProps {
   authorName: string;
+  authorID: string;
 }
 
-const UserCard = ({ authorName }: UserCardProps) => {
+const UserCard = ({ authorName, authorID }: UserCardProps) => {
+  const navigate = useNavigate();
   const abbreviateName = () => {
     const splited = authorName.split(" ");
 
@@ -33,8 +37,10 @@ const UserCard = ({ authorName }: UserCardProps) => {
 
   return (
     <UserCardContainer>
-      <div>{abbreviateName()}</div>
-      <span>{authorName}</span>
+      <div onClick={() => navigate(`/user/${authorID}`)}>
+        {abbreviateName()}
+      </div>
+      <span onClick={() => navigate(`/user/${authorID}`)}>{authorName}</span>
     </UserCardContainer>
   );
 };

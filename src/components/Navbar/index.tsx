@@ -20,6 +20,8 @@ import { LogoBlack } from "../Logo";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../context/user.context";
+import ModalEditProfile from "../Modal/EditProfile/ModalEditProfile";
+import ModalEditAddress from "../Modal/EditAddress/ModalEditAddress";
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
@@ -79,8 +81,8 @@ export default function Navbar() {
               </Stack>
             </MenuButton>
             <MenuList>
-              <MenuItem>Editar Perfil</MenuItem>
-              <MenuItem>Editar Endereço</MenuItem>
+              <ModalEditProfile></ModalEditProfile>
+              <ModalEditAddress></ModalEditAddress>
               {user.is_advertiser && (
                 <MenuItem onClick={() => navigate("/profile")}>
                   Meus Anúncios
@@ -139,6 +141,7 @@ export default function Navbar() {
 const MobileNav = () => {
   const navigate = useNavigate();
   const { user, logout } = useContext(UserContext);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <Stack
@@ -161,7 +164,7 @@ const MobileNav = () => {
             h={"100%"}
             gap={"1rem"}
           >
-            <Button variant={"linkButton"} w={"90%"}>
+            <Button variant={"linkButton"} w={"90%"} onClick={onOpen}>
               Editar Perfil
             </Button>
             <Button variant={"linkButton"} w={"90%"}>
