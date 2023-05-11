@@ -88,8 +88,8 @@ const AnnouncerProfile = () => {
       try {
         const { data }: IResponseUserApi = await Api.get(`/users/${id}`);
         setActualUser(data);
-      } catch {
-        console.log("Algo deu errado!");
+      } catch (err) {
+        console.log(err as IErro);
       }
     };
 
@@ -135,4 +135,3 @@ const AnnouncerProfile = () => {
 };
 
 export default AnnouncerProfile;
-

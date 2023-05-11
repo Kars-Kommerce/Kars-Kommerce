@@ -10,7 +10,7 @@ import Api from "../../utils/Api";
 import Loading from "../../components/Loading";
 import CreateComment from "../../components/CreateComment";
 import { UserContext } from "../../context/user.context";
-
+import CommentBox from "../../components/CommentsBox";
 
 interface IAdsAuthorProps {
   id: string;
@@ -55,7 +55,7 @@ interface IResponse {
 }
 
 const Product = () => {
-  const user = useContext(UserContext)
+  const user = useContext(UserContext);
   const { id } = useParams();
   const [actualAds, setActualAds] = useState<IAdsResponseProps | null>(null);
 
@@ -121,14 +121,11 @@ const Product = () => {
             authorID={actualAds.author.id}
           />
         </Flex>
-       
       </Flex>
 
-      { 
-        user.user&&
-        <CreateComment adId={actualAds.id} ></CreateComment>}
+      <CommentBox list={actualAds.comments} />
+      {user.user && <CreateComment adId={actualAds.id}></CreateComment>}
     </Flex>
-
   ) : (
     <Loading />
   );

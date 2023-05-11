@@ -66,7 +66,6 @@ const RegisterForm = () => {
     resolver: zodResolver(schema),
   });
 
-
   const navigate = useNavigate();
 
   const watchIs_advertiser = watch("is_advertiser");
@@ -79,11 +78,9 @@ const RegisterForm = () => {
     data.is_advertiser = Boolean(data.is_advertiser);
     data.birth_date = moment(data.birth_date).format("DD-MM-YYYY");
     let { cep, state, city, street, number, complement, ...userData } = data;
-    // userData.address = { cep, state, city, street, number, complement };
-    console.log(userData, errors);
+    userData.address = { cep, state, city, street, number, complement };
     apiRegister(userData);
   };
-
 
   return (
     <Flex minH={"100%"} align={"center"} justify={"center"} bg={"grey.8"}>
