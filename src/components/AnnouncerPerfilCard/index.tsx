@@ -11,7 +11,11 @@ import {
 } from "@chakra-ui/react";
 import Tag from "../Tag";
 import ModalCreateAd from "../Modal/CreateAd/ModalCreateAd";
-const AnnouncerPerfilCard = ({ authorName, bio }: any) => {
+import { useContext } from "react";
+import { UserContext } from "../../context/user.context";
+const AnnouncerPerfilCard = ({ authorName, bio, userId }: any) => {
+  const { user } = useContext(UserContext);
+
   return (
     <>
       <Card
@@ -53,7 +57,7 @@ const AnnouncerPerfilCard = ({ authorName, bio }: any) => {
         </CardBody>
 
         <CardFooter display={"flex"} justifyContent={"flex-start"}>
-          <ModalCreateAd />
+          {user?.id == userId && <ModalCreateAd />}
         </CardFooter>
       </Card>
     </>
