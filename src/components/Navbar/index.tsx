@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../context/user.context";
 import ModalEditProfile from "../Modal/EditProfile/ModalEditProfile";
+import ModalEditAddress from "../Modal/EditAddress/ModalEditAddress";
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
@@ -81,7 +82,7 @@ export default function Navbar() {
             </MenuButton>
             <MenuList>
               <ModalEditProfile></ModalEditProfile>
-              <MenuItem>Editar Endereço</MenuItem>
+              <ModalEditAddress></ModalEditAddress>
               {user.is_advertiser && (
                 <MenuItem onClick={() => navigate("/profile")}>
                   Meus Anúncios

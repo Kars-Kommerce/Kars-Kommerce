@@ -19,7 +19,6 @@ function App() {
       padding={0}
       bg={"grey.8"}
     >
-      <ModalCreateAd></ModalCreateAd>
       <Navbar />
       <Routes />
       <Footer />
