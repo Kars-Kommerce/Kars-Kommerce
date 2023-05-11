@@ -1,4 +1,4 @@
-import { Box, Flex, useMediaQuery } from "@chakra-ui/react";
+import { Box, Flex, Heading, useMediaQuery } from "@chakra-ui/react";
 import ProductCard from "../ProductCard";
 
 interface IListProps {
@@ -49,10 +49,16 @@ const ListProductsCard = ({ array }: IListProps) => {
           justify={"flex-start"}
           px={"1rem"}
           alignSelf={"flex-start"}
+          width={"100%"}
+          height={"100%"}
         >
-          {array.map((el, i) => (
-            <ProductCard key={`${el.title}-${i}`} product={el} />
-          ))}
+          {array.length > 0 ? (
+            array.map((el, i) => (
+              <ProductCard key={`${el.title}-${i}`} product={el} />
+            ))
+          ) : (
+            <Heading margin={"0 auto"}>Sem nenhum anuncio no momento!</Heading>
+          )}
         </Flex>
       </Flex>
     </Box>

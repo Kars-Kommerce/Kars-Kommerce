@@ -126,6 +126,7 @@ const AnnouncerProfile = () => {
       <AnnouncerPerfilCard
         bio={actualUser?.bio || ""}
         authorName={actualUser?.name || ""}
+        userId={actualUser?.id || ""}
       />
       <ListProductsCard array={actualUser?.ads! || []} />
     </Flex>
